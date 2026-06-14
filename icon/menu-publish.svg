@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 48 48" fill="none">
+  <!-- 盒子主体 -->
+  <rect x="8" y="14" width="32" height="26" rx="4" stroke="#6B6255" stroke-width="3"/>
+  <!-- 盒盖 -->
+  <path d="M6 14L24 6L42 14" stroke="#6B6255" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+  <!-- 标签/星号 -->
+  <path d="M24 20V34M18 27H30" stroke="#6B6255" stroke-width="2.5" stroke-linecap="round"/>
+</svg>

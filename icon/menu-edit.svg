@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 48 48" fill="none">
+  <!-- 铅笔 -->
+  <path d="M8 36L14 40L38 14L32 8L8 36Z" stroke="#6B6255" stroke-width="3" stroke-linejoin="round"/>
+  <!-- 笔尖 -->
+  <path d="M32 8L40 16" stroke="#6B6255" stroke-width="3" stroke-linecap="round"/>
+  <!-- 擦除线 -->
+  <path d="M14 40L18 32" stroke="#6B6255" stroke-width="2.5" stroke-linecap="round"/>
+</svg>

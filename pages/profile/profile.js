@@ -26,8 +26,7 @@ Page({
     settingList: [
       { id: 'edit_profile', name: '编辑个人资料', icon: '✏️' },
       { id: 'rules', name: '平台规则', icon: '📋' },
-      { id: 'feedback', name: '意见反馈', icon: '💬' },
-      { id: 'contact_service', name: '联系客服', icon: '☎️' }
+      { id: 'feedback', name: '意见反馈', icon: '💡' }
     ]
   },
 
@@ -189,20 +188,12 @@ Page({
     
     const routeMap = {
       'edit_profile': '/pages/edit-profile/edit-profile',
-      'rules': '/pages/webview/webview?url=https://gaohucun.com/rules',
-      'feedback': '/pages/feedback/feedback',
-      'contact_service': ''
+      'rules': '/pages/rules/rules',
+      'feedback': '/pages/feedback/feedback'
     };
-    
+
     const url = routeMap[settingId];
-    
-    if (settingId === 'contact_service') {
-      // 拨打客服电话
-      wx.makePhoneCall({
-        phoneNumber: '400-XXX-XXXX',
-        fail: () => {}
-      });
-    } else if (url) {
+    if (url) {
       wx.navigateTo({ url: url });
     }
   },

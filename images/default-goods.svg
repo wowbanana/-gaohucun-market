@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="200" height="200" viewBox="0 0 200 200" fill="none">
+  <!-- 背景 -->
+  <rect x="0" y="0" width="200" height="200" rx="16" fill="#F0EDE8"/>
+  <!-- 图片图标 -->
+  <rect x="55" y="55" width="90" height="70" rx="8" stroke="#A09888" stroke-width="6"/>
+  <!-- 山/太阳 -->
+  <circle cx="85" cy="78" r="10" fill="#A09888" opacity="0.4"/>
+  <path d="M65 100L85 78L105 95L120 82L135 100" stroke="#A09888" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>

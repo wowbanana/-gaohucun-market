@@ -1,0 +1,25 @@
+<!-- pages/rules/rules.wxml - 平台规则页 -->
+<view class="rules-page">
+  <view class="rules-hero">
+    <text class="rules-hero__icon">📋</text>
+    <text class="rules-hero__text">为营造良好的交易环境，请全体村民共同遵守以下规则</text>
+  </view>
+
+  <view class="rules-section" wx:for="{{sections}}" wx:key="title">
+    <view class="rules-section__header">
+      <text class="rules-section__icon">{{item.icon}}</text>
+      <text class="rules-section__title">{{item.title}}</text>
+    </view>
+    <view class="rules-section__body">
+      <view class="rules-item" wx:for="{{item.items}}" wx:for-item="rule" wx:key="*this">
+        <text class="rules-item__dot"></text>
+        <text class="rules-item__text">{{rule}}</text>
+      </view>
+    </view>
+  </view>
+
+  <view class="rules-footer">
+    <text class="rules-footer__text">高湖村二手市场 · 共建和谐交易平台</text>
+    <text class="rules-footer__version">最后更新：2026年6月</text>
+  </view>
+</view>

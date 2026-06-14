@@ -2,101 +2,161 @@
 <html lang="zh-CN">
 <head>
 <meta charset="UTF-8">
-<title>图标转换 - 高湖村 TabBar 图标</title>
+<title>图标转换 - 高湖村 全部图标生成器</title>
 <style>
-  body { font-family: -apple-system, 'PingFang SC', sans-serif; max-width: 680px; margin: 40px auto; padding: 20px; background: #F7F4F0; }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: -apple-system, 'PingFang SC', 'Microsoft YaHei', sans-serif; max-width: 800px; margin: 30px auto; padding: 20px; background: #F7F4F0; }
   h2 { color: #3D7A7C; text-align: center; font-size: 24px; }
-  .sub { text-align: center; color: #A09888; margin-bottom: 28px; }
-  .icons { display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; margin: 20px 0; }
-  .icon-card { background: #fff; border-radius: 12px; padding: 14px 10px 8px; text-align: center; box-shadow: 0 2px 8px rgba(44,36,22,0.06); width: 100px; }
-  .icon-card canvas { display: block; margin: 0 auto; }
-  .icon-card p { margin: 8px 0 0; font-size: 11px; color: #6B6255; }
-  button { display: block; margin: 28px auto; padding: 14px 48px; font-size: 17px; background: linear-gradient(135deg, #3D7A7C, #5A9FA0); color: #fff; border: none; border-radius: 50px; cursor: pointer; font-weight: 600; letter-spacing: 2px; box-shadow: 0 4px 16px rgba(61,122,124,0.3); }
-  button:hover { opacity: 0.9; }
-  button:disabled { opacity: 0.5; cursor: default; }
-  .done { text-align: center; font-size: 15px; min-height: 24px; margin-top: 12px; }
+  .sub { text-align: center; color: #A09888; margin-bottom: 10px; }
+  .section-title { color: #3D7A7C; font-size: 18px; font-weight: 600; margin: 24px 0 12px; padding-left: 4px; border-left: 4px solid #3D7A7C; }
+  .icons { display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; margin: 16px 0; }
+  .icon-card { background: #fff; border-radius: 12px; padding: 14px 10px 10px; text-align: center; box-shadow: 0 2px 8px rgba(44,36,22,0.06); width: 105px; }
+  .icon-card canvas { display: block; margin: 0 auto; image-rendering: auto; }
+  .icon-card p { margin: 6px 0 0; font-size: 10px; color: #6B6255; line-height: 1.3; }
+  .btn-group { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; margin-top: 28px; }
+  button { padding: 14px 32px; font-size: 16px; background: linear-gradient(135deg, #3D7A7C, #5A9FA0); color: #fff; border: none; border-radius: 50px; cursor: pointer; font-weight: 600; letter-spacing: 1px; box-shadow: 0 4px 16px rgba(61,122,124,0.3); }
+  button:hover { opacity: 0.92; transform: translateY(-1px); }
+  button:disabled { opacity: 0.5; cursor: default; transform: none; }
+  button.secondary { background: linear-gradient(135deg, #A09888, #B5AFA3); box-shadow: 0 4px 16px rgba(160,152,136,0.3); }
+  .done { text-align: center; font-size: 15px; min-height: 24px; margin-top: 14px; font-weight: 500; }
   .done.ok { color: #6B9E5A; }
   .done.err { color: #D9544B; }
+  .hint { text-align: center; color: #A09888; font-size: 13px; margin-top: 16px; line-height: 1.6; }
 </style>
 </head>
 <body>
 
-<h2>高湖村 TabBar 图标生成器</h2>
-<p class="sub">点击按钮，10 个图标自动下载为 81x81 PNG</p>
+<h2>🏘️ 高湖村二手市场 — 图标生成器</h2>
+<p class="sub">一键下载全部 TabBar 图标 + 占位图 (PNG)</p>
 
-<div class="icons" id="icons"></div>
+<!-- ========== TabBar 图标 ========== -->
+<div class="section-title">📱 TabBar 图标 (81×81)</div>
+<div class="icons" id="tabbarIcons"></div>
+<button onclick="downloadTabbar()" id="btnTabbar">下载全部 TabBar 图标 (10个)</button>
+<p class="done" id="tabbarMsg"></p>
 
-<button onclick="downloadAll()" id="btn">一键下载全部 PNG</button>
-<p class="done" id="msg"></p>
-<p style="text-align:center;color:#A09888;font-size:13px;margin-top:20px;">下载后将 PNG 文件放入项目的 images/tabbar/ 目录即可</p>
+<!-- ========== 占位图 ========== -->
+<div class="section-title">🏷️ 占位图 (200×200)</div>
+<div class="icons" id="placeholderIcons"></div>
+<button onclick="downloadPlaceholders()" id="btnPlaceholder" class="secondary">下载全部占位图 (4个)</button>
+<p class="done" id="placeholderMsg"></p>
+
+<p class="hint">
+  ⚠️ TabBar PNG 放入 <b>images/tabbar/</b> 目录<br>
+  ⚠️ 占位图 PNG 放入 <b>images/</b> 根目录<br>
+  ⚠️ 下载后请重启微信开发者工具查看效果
+</p>
 
 <script>
-const SVG_DATA = {
-  'home': '<svg xmlns="http://www.w3.org/2000/svg" width="81" height="81" viewBox="0 0 81 81" fill="none"><path d="M14 36L40.5 14L67 36V64C67 66.2 65.2 68 63 68H18C15.8 68 14 66.2 14 64V36Z" stroke="#A09888" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/><path d="M30 68V44H51V68" stroke="#A09888" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/></svg>',
-  'home-active': '<svg xmlns="http://www.w3.org/2000/svg" width="81" height="81" viewBox="0 0 81 81" fill="none"><path d="M14 36L40.5 14L67 36V64C67 66.2 65.2 68 63 68H18C15.8 68 14 66.2 14 64V36Z" fill="#3D7A7C" stroke="#3D7A7C" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/><path d="M30 68V44H51V68" stroke="#fff" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/></svg>',
-  'category': '<svg xmlns="http://www.w3.org/2000/svg" width="81" height="81" viewBox="0 0 81 81" fill="none"><rect x="12" y="12" width="24" height="24" rx="5" stroke="#A09888" stroke-width="4"/><rect x="45" y="12" width="24" height="24" rx="5" stroke="#A09888" stroke-width="4"/><rect x="12" y="45" width="24" height="24" rx="5" stroke="#A09888" stroke-width="4"/><rect x="45" y="45" width="24" height="24" rx="5" stroke="#A09888" stroke-width="4"/></svg>',
-  'category-active': '<svg xmlns="http://www.w3.org/2000/svg" width="81" height="81" viewBox="0 0 81 81" fill="none"><rect x="12" y="12" width="24" height="24" rx="5" fill="#3D7A7C"/><rect x="45" y="12" width="24" height="24" rx="5" fill="#3D7A7C"/><rect x="12" y="45" width="24" height="24" rx="5" fill="#3D7A7C"/><rect x="45" y="45" width="24" height="24" rx="5" fill="#3D7A7C"/></svg>',
-  'publish': '<svg xmlns="http://www.w3.org/2000/svg" width="81" height="81" viewBox="0 0 81 81" fill="none"><circle cx="40.5" cy="40.5" r="28" fill="#E8A840"/><path d="M40.5 22V59M22 40.5H59" stroke="#fff" stroke-width="5" stroke-linecap="round"/></svg>',
-  'publish-active': '<svg xmlns="http://www.w3.org/2000/svg" width="81" height="81" viewBox="0 0 81 81" fill="none"><circle cx="40.5" cy="40.5" r="28" fill="#E89820"/><path d="M40.5 22V59M22 40.5H59" stroke="#fff" stroke-width="5" stroke-linecap="round"/></svg>',
-  'board': '<svg xmlns="http://www.w3.org/2000/svg" width="81" height="81" viewBox="0 0 81 81" fill="none"><path d="M16 18H65C67.2 18 69 19.8 69 22V48C69 50.2 67.2 52 65 52H44L28 66V52H16C13.8 52 12 50.2 12 48V22C12 19.8 13.8 18 16 18Z" stroke="#A09888" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/></svg>',
-  'board-active': '<svg xmlns="http://www.w3.org/2000/svg" width="81" height="81" viewBox="0 0 81 81" fill="none"><path d="M16 18H65C67.2 18 69 19.8 69 22V48C69 50.2 67.2 52 65 52H44L28 66V52H16C13.8 52 12 50.2 12 48V22C12 19.8 13.8 18 16 18Z" fill="#3D7A7C" stroke="#3D7A7C" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>',
-  'profile': '<svg xmlns="http://www.w3.org/2000/svg" width="81" height="81" viewBox="0 0 81 81" fill="none"><circle cx="40.5" cy="27" r="13" stroke="#A09888" stroke-width="4"/><path d="M16 68C16 54.5 27 43.5 40.5 43.5C54 43.5 65 54.5 65 68" stroke="#A09888" stroke-width="4" stroke-linecap="round"/></svg>',
-  'profile-active': '<svg xmlns="http://www.w3.org/2000/svg" width="81" height="81" viewBox="0 0 81 81" fill="none"><circle cx="40.5" cy="27" r="13" fill="#3D7A7C"/><path d="M16 68C16 54.5 27 43.5 40.5 43.5C54 43.5 65 54.5 65 68" fill="#3D7A7C" stroke="#3D7A7C" stroke-width="3" stroke-linecap="round"/></svg>'
+// ==================== TabBar SVG 数据 (81x81) ====================
+const TABBAR_SVG = {
+  'home': '<svg xmlns="http://www.w3.org/2000/svg" width="81" height="81" viewBox="0 0 81 81" fill="none"><path d="M52 17V26" stroke="#A09888" stroke-width="4" stroke-linecap="round"/><path d="M10 37L40.5 11L71 37" stroke="#A09888" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/><rect x="17" y="37" width="47" height="31" rx="5" stroke="#A09888" stroke-width="5"/><rect x="32" y="47" width="17" height="21" rx="8" stroke="#A09888" stroke-width="4"/><circle cx="44.5" cy="58.5" r="2" fill="#A09888"/></svg>',
+  'home-active': '<svg xmlns="http://www.w3.org/2000/svg" width="81" height="81" viewBox="0 0 81 81" fill="none"><rect x="50" y="15" width="9" height="14" rx="3" fill="#3D7A7C"/><path d="M10 37L40.5 11L71 37" fill="#3D7A7C" stroke="#3D7A7C" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/><rect x="17" y="37" width="47" height="31" rx="5" fill="#3D7A7C"/><rect x="32" y="47" width="17" height="21" rx="8" fill="white"/><circle cx="44.5" cy="58.5" r="2" fill="#3D7A7C"/></svg>',
+  'category': '<svg xmlns="http://www.w3.org/2000/svg" width="81" height="81" viewBox="0 0 81 81" fill="none"><rect x="13" y="13" width="23" height="23" rx="6" stroke="#A09888" stroke-width="5"/><rect x="45" y="13" width="23" height="23" rx="6" stroke="#A09888" stroke-width="5"/><rect x="13" y="45" width="23" height="23" rx="6" stroke="#A09888" stroke-width="5"/><rect x="45" y="45" width="23" height="23" rx="6" stroke="#A09888" stroke-width="5"/></svg>',
+  'category-active': '<svg xmlns="http://www.w3.org/2000/svg" width="81" height="81" viewBox="0 0 81 81" fill="none"><rect x="13" y="13" width="23" height="23" rx="6" fill="#3D7A7C"/><rect x="45" y="13" width="23" height="23" rx="6" fill="#3D7A7C"/><rect x="13" y="45" width="23" height="23" rx="6" fill="#3D7A7C"/><rect x="45" y="45" width="23" height="23" rx="6" fill="#3D7A7C"/></svg>',
+  'publish': '<svg xmlns="http://www.w3.org/2000/svg" width="81" height="81" viewBox="0 0 81 81" fill="none"><circle cx="40.5" cy="40.5" r="28" fill="#E8A840"/><rect x="36" y="20" width="9" height="41" rx="4.5" fill="white"/><rect x="20" y="36" width="41" height="9" rx="4.5" fill="white"/></svg>',
+  'publish-active': '<svg xmlns="http://www.w3.org/2000/svg" width="81" height="81" viewBox="0 0 81 81" fill="none"><circle cx="40.5" cy="40.5" r="28" fill="#D4892A"/><rect x="36" y="20" width="9" height="41" rx="4.5" fill="white"/><rect x="20" y="36" width="41" height="9" rx="4.5" fill="white"/></svg>',
+  'board': '<svg xmlns="http://www.w3.org/2000/svg" width="81" height="81" viewBox="0 0 81 81" fill="none"><path d="M16 17H65C67.8 17 70 19.2 70 22V47C70 49.8 67.8 52 65 52H47L30 67V52H16C13.2 52 11 49.8 11 47V22C11 19.2 13.2 17 16 17Z" stroke="#A09888" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/><rect x="22" y="27" width="28" height="4" rx="2" fill="#A09888" opacity="0.5"/><rect x="22" y="35" width="36" height="4" rx="2" fill="#A09888" opacity="0.5"/><rect x="22" y="43" width="20" height="4" rx="2" fill="#A09888" opacity="0.5"/></svg>',
+  'board-active': '<svg xmlns="http://www.w3.org/2000/svg" width="81" height="81" viewBox="0 0 81 81" fill="none"><path d="M16 17H65C67.8 17 70 19.2 70 22V47C70 49.8 67.8 52 65 52H47L30 67V52H16C13.2 52 11 49.8 11 47V22C11 19.2 13.2 17 16 17Z" fill="#3D7A7C" stroke="#3D7A7C" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/><rect x="22" y="27" width="28" height="4" rx="2" fill="white" opacity="0.7"/><rect x="22" y="35" width="36" height="4" rx="2" fill="white" opacity="0.7"/><rect x="22" y="43" width="20" height="4" rx="2" fill="white" opacity="0.7"/></svg>',
+  'profile': '<svg xmlns="http://www.w3.org/2000/svg" width="81" height="81" viewBox="0 0 81 81" fill="none"><circle cx="40.5" cy="26" r="11" stroke="#A09888" stroke-width="5"/><path d="M15 68C15 52.5 26.5 42.5 40.5 42.5C54.5 42.5 66 52.5 66 68" stroke="#A09888" stroke-width="5" stroke-linecap="round"/></svg>',
+  'profile-active': '<svg xmlns="http://www.w3.org/2000/svg" width="81" height="81" viewBox="0 0 81 81" fill="none"><circle cx="40.5" cy="26" r="11" fill="#3D7A7C"/><path d="M15 68C15 52.5 26.5 42.5 40.5 42.5C54.5 42.5 66 52.5 66 68" fill="#3D7A7C"/></svg>',
 };
 
-const FILES = [
+const TABBAR_FILES = [
   'home','home-active','category','category-active','publish','publish-active',
   'board','board-active','profile','profile-active'
 ];
 
+// ==================== 占位图 SVG 数据 (200x200) ====================
+const PLACEHOLDER_SVG = {
+  'default-avatar': '<svg xmlns="http://www.w3.org/2000/svg" width="200" height="200" viewBox="0 0 200 200" fill="none"><circle cx="100" cy="100" r="100" fill="#E8E3DC"/><circle cx="100" cy="78" r="30" fill="#A09888"/><path d="M45 180C45 150 69 125 100 125C131 125 155 150 155 180" fill="#A09888"/></svg>',
+  'default-goods': '<svg xmlns="http://www.w3.org/2000/svg" width="200" height="200" viewBox="0 0 200 200" fill="none"><rect x="0" y="0" width="200" height="200" rx="16" fill="#F0EDE8"/><rect x="55" y="55" width="90" height="70" rx="8" stroke="#A09888" stroke-width="6"/><circle cx="85" cy="78" r="10" fill="#A09888" opacity="0.4"/><path d="M65 100L85 78L105 95L120 82L135 100" stroke="#A09888" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+  'empty-goods': '<svg xmlns="http://www.w3.org/2000/svg" width="200" height="200" viewBox="0 0 200 200" fill="none"><circle cx="100" cy="100" r="100" fill="#F0EDE8"/><rect x="55" y="60" width="90" height="75" rx="8" stroke="#A09888" stroke-width="5" stroke-dasharray="8 4"/><rect x="96" y="78" width="8" height="39" rx="4" fill="#A09888" opacity="0.4"/><rect x="78" y="93" width="44" height="8" rx="4" fill="#A09888" opacity="0.4"/></svg>',
+  'empty-board': '<svg xmlns="http://www.w3.org/2000/svg" width="200" height="200" viewBox="0 0 200 200" fill="none"><circle cx="100" cy="100" r="100" fill="#F0EDE8"/><path d="M50 55H150C157 55 163 61 163 68V115C163 122 157 128 150 128H118L80 158V128H50C43 128 37 122 37 115V68C37 61 43 55 50 55Z" stroke="#A09888" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/><circle cx="75" cy="90" r="6" fill="#A09888" opacity="0.4"/><circle cx="100" cy="90" r="6" fill="#A09888" opacity="0.4"/><circle cx="125" cy="90" r="6" fill="#A09888" opacity="0.4"/></svg>',
+};
+
+const PLACEHOLDER_FILES = ['default-avatar', 'default-goods', 'empty-goods', 'empty-board'];
+
+// ==================== 通用函数 ====================
 function svgToPng(svgText, size) {
   return new Promise((resolve) => {
     const canvas = document.createElement('canvas');
     canvas.width = size; canvas.height = size;
     const ctx = canvas.getContext('2d');
     const img = new Image();
-    img.onload = () => { ctx.drawImage(img, 0, 0, size, size); resolve(canvas); };
-    img.src = 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(svgText);
+    const svgBlob = new Blob([svgText], { type: 'image/svg+xml;charset=utf-8' });
+    const url = URL.createObjectURL(svgBlob);
+    img.onload = () => {
+      ctx.drawImage(img, 0, 0, size, size);
+      URL.revokeObjectURL(url);
+      resolve(canvas);
+    };
+    img.onerror = () => { URL.revokeObjectURL(url); resolve(null); };
+    img.src = url;
   });
 }
 
-(async () => {
-  const container = document.getElementById('icons');
-  for (const name of FILES) {
-    const canvas = await svgToPng(SVG_DATA[name], 81);
+function renderPreviews(containerId, svgData, files, size, labelFn) {
+  const container = document.getElementById(containerId);
+  container.innerHTML = '';
+  files.forEach(async (name) => {
+    const canvas = await svgToPng(svgData[name], size);
+    if (!canvas) return;
     const card = document.createElement('div');
     card.className = 'icon-card';
     card.appendChild(canvas);
     const p = document.createElement('p');
-    p.textContent = name.replace('-active','').replace('-',' ') + (name.includes('active') ? ' active' : '');
+    p.textContent = labelFn ? labelFn(name) : name;
     card.appendChild(p);
     container.appendChild(card);
-  }
-})();
+  });
+}
 
-async function downloadAll() {
-  const btn = document.getElementById('btn');
-  const msg = document.getElementById('msg');
+async function downloadAll(svgData, files, size, btnId, msgId, prefix) {
+  const btn = document.getElementById(btnId);
+  const msg = document.getElementById(msgId);
   btn.disabled = true;
-  btn.textContent = '...';
+  btn.textContent = '生成中...';
   msg.className = 'done';
   msg.textContent = '';
 
-  for (const name of FILES) {
-    const canvas = await svgToPng(SVG_DATA[name], 81);
+  let ok = 0;
+  for (const name of files) {
+    const canvas = await svgToPng(svgData[name], size);
+    if (!canvas) continue;
     const a = document.createElement('a');
-    const finalName = name.replace('-active','') + (name.includes('active') ? '-active' : '') + '.png';
+    const finalName = (prefix ? prefix(name) : name) + '.png';
     a.href = canvas.toDataURL('image/png');
     a.download = finalName;
     a.click();
-    await new Promise(r => setTimeout(r, 150));
+    ok++;
+    await new Promise(r => setTimeout(r, 120));
   }
 
   btn.disabled = false;
-  btn.textContent = '一键下载全部 PNG';
+  btn.textContent = '下载全部 ' + (prefix ? prefix('') : '') + ' (' + files.length + '个)';
   msg.className = 'done ok';
-  msg.textContent = '下载完成！请将 10 个 PNG 文件放入 images/tabbar/ 目录';
+  msg.textContent = '✅ 已触发 ' + ok + ' 个文件下载！放入对应目录后重启微信开发者工具';
 }
+
+// ==================== 按钮事件 ====================
+function downloadTabbar() {
+  downloadAll(TABBAR_SVG, TABBAR_FILES, 81, 'btnTabbar', 'tabbarMsg');
+}
+function downloadPlaceholders() {
+  downloadAll(PLACEHOLDER_SVG, PLACEHOLDER_FILES, 200, 'btnPlaceholder', 'placeholderMsg');
+}
+
+// ==================== 预览渲染 ====================
+renderPreviews('tabbarIcons', TABBAR_SVG, TABBAR_FILES, 81, function(name) {
+  const map = { home:'首页', category:'分类', publish:'发布', board:'留言', profile:'我的' };
+  const base = name.replace('-active','');
+  return (map[base] || base) + (name.includes('active') ? '·选中' : '');
+});
+renderPreviews('placeholderIcons', PLACEHOLDER_SVG, PLACEHOLDER_FILES, 200, function(name) {
+  const map = { 'default-avatar':'默认头像', 'default-goods':'默认商品', 'empty-goods':'空商品', 'empty-board':'空留言' };
+  return map[name] || name;
+});
 </script>
 </body>
 </html>

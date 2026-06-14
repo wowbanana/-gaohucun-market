@@ -1,0 +1,100 @@
+/* pages/rules/rules.wxss - 平台规则 · 湖畔晨光 */
+
+.rules-page {
+  min-height: 100vh;
+  background: var(--color-bg-page);
+  padding-bottom: 60rpx;
+}
+
+/* --- 顶部提示 --- */
+.rules-hero {
+  margin: 24rpx;
+  padding: 28rpx 30rpx;
+  background: linear-gradient(135deg, #EDF4F4, #F0EDE8);
+  border-radius: var(--radius-lg);
+  display: flex;
+  align-items: flex-start;
+  gap: 16rpx;
+}
+.rules-hero__icon {
+  font-size: 40rpx;
+  flex-shrink: 0;
+  margin-top: 2rpx;
+}
+.rules-hero__text {
+  font-size: 28rpx;
+  color: var(--color-text-secondary);
+  line-height: 1.6;
+}
+
+/* --- 分区 --- */
+.rules-section {
+  margin: 0 24rpx 24rpx;
+  background: var(--color-bg-card);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow-xs);
+}
+
+.rules-section__header {
+  display: flex;
+  align-items: center;
+  gap: 12rpx;
+  padding: 24rpx 28rpx;
+  background: linear-gradient(135deg, #3D7A7C, #5A9FA0);
+}
+.rules-section__icon {
+  font-size: 32rpx;
+}
+.rules-section__title {
+  font-size: 30rpx;
+  font-weight: 700;
+  color: #fff;
+}
+
+.rules-section__body {
+  padding: 12rpx 28rpx 24rpx;
+}
+
+/* --- 单条规则 --- */
+.rules-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 16rpx;
+  padding: 14rpx 0;
+  border-bottom: 1rpx solid #F2EEE8;
+}
+.rules-item:last-child {
+  border-bottom: none;
+}
+.rules-item__dot {
+  width: 10rpx;
+  height: 10rpx;
+  border-radius: 50%;
+  background: var(--color-primary);
+  flex-shrink: 0;
+  margin-top: 14rpx;
+}
+.rules-item__text {
+  font-size: 27rpx;
+  color: var(--color-text-secondary);
+  line-height: 1.7;
+  flex: 1;
+}
+
+/* --- 底部 --- */
+.rules-footer {
+  text-align: center;
+  padding: 40rpx 30rpx;
+}
+.rules-footer__text {
+  font-size: 24rpx;
+  color: var(--color-text-tertiary);
+  display: block;
+}
+.rules-footer__version {
+  font-size: 22rpx;
+  color: #C5BEB5;
+  margin-top: 6rpx;
+  display: block;
+}

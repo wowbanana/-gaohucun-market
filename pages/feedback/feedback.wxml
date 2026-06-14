@@ -1,0 +1,79 @@
+<!-- pages/feedback/feedback.wxml - 意见反馈页 -->
+<view class="feedback-page">
+  <view class="feedback-hero">
+    <text class="feedback-hero__icon">💡</text>
+    <text class="feedback-hero__text">你的意见对我们很重要，帮助我们越做越好</text>
+  </view>
+
+  <!-- 反馈内容 -->
+  <view class="form-section">
+    <view class="form-label">
+      <text class="form-label__text">反馈内容</text>
+      <text class="form-label__count {{content.length >= 3 ? 'form-label__count--ok' : ''}}">{{content.length}}/500</text>
+    </view>
+    <textarea
+      class="form-textarea"
+      placeholder="请详细描述你的建议或遇到的问题..."
+      maxlength="500"
+      auto-height
+      value="{{content}}"
+      bindinput="onContentInput"
+    />
+    <view class="form-hint" wx:if="{{content.length < 3}}">
+      <text>{{content.length === 0 ? '至少输入3个字才能提交' : '还差' + (3 - content.length) + '个字'}}</text>
+    </view>
+    <view class="form-hint form-hint--ok" wx:elif="{{content.length < 10}}">
+      <text>✓ 已满足最低字数，越详细越有助于解决问题</text>
+    </view>
+  </view>
+
+  <!-- 联系方式（选填） -->
+  <view class="form-section">
+    <view class="form-label">
+      <text class="form-label__text">联系方式（选填）</text>
+    </view>
+    <input
+      class="form-input"
+      placeholder="手机号或微信号，方便我们回复你"
+      maxlength="30"
+      value="{{contact}}"
+      bindinput="onContactInput"
+    />
+  </view>
+
+  <!-- 提交按钮 -->
+  <view class="submit-section">
+    <button
+      class="submit-btn {{canSubmit ? 'submit-btn--active' : ''}}"
+      loading="{{submitting}}"
+      disabled="{{submitting || !canSubmit}}"
+      bindtap="onSubmit"
+    >
+      {{canSubmit ? '提交反馈' : '请先输入反馈内容'}}
+    </button>
+  </view>
+
+  <!-- ========== 反馈记录 ========== -->
+  <view class="history-section" wx:if="{{feedbackList.length > 0}}">
+    <view class="history-header">
+      <text class="history-header__title">📝 我的反馈记录</text>
+      <text class="history-header__count">{{feedbackList.length}}条</text>
+    </view>
+
+    <view class="history-list">
+      <view class="history-item" wx:for="{{feedbackList}}" wx:key="_id">
+        <view class="history-item__header">
+          <view class="history-item__status {{item.status === 'read' ? 'history-item__status--read' : ''}}">
+            <text class="history-item__status-dot"></text>
+            <text>{{item.statusText}}</text>
+          </view>
+          <text class="history-item__time">{{item.timeText}}</text>
+        </view>
+        <text class="history-item__content">{{item.content}}</text>
+        <text class="history-item__contact" wx:if="{{item.contact}}">联系方式：{{item.contact}}</text>
+      </view>
+    </view>
+  </view>
+
+  <view class="safe-bottom"></view>
+</view>

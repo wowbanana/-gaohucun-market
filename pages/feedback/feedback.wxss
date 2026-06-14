@@ -1,0 +1,197 @@
+/* pages/feedback/feedback.wxss - 意见反馈 · 湖畔晨光 */
+
+.feedback-page {
+  min-height: 100vh;
+  background: var(--color-bg-page);
+  padding-bottom: 60rpx;
+}
+
+/* --- 顶部提示 --- */
+.feedback-hero {
+  margin: 24rpx;
+  padding: 28rpx 30rpx;
+  background: linear-gradient(135deg, #FFF8F0, #FFF3E4);
+  border-radius: var(--radius-lg);
+  display: flex;
+  align-items: flex-start;
+  gap: 16rpx;
+  border: 2rpx solid rgba(232,168,64,0.2);
+}
+.feedback-hero__icon {
+  font-size: 40rpx;
+  flex-shrink: 0;
+  margin-top: 2rpx;
+}
+.feedback-hero__text {
+  font-size: 28rpx;
+  color: var(--color-text-secondary);
+  line-height: 1.6;
+}
+
+/* --- 表单 --- */
+.form-section {
+  margin: 0 24rpx 24rpx;
+  background: var(--color-bg-card);
+  border-radius: var(--radius-lg);
+  padding: 24rpx 28rpx;
+  box-shadow: var(--shadow-xs);
+}
+
+.form-label {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16rpx;
+}
+.form-label__text {
+  font-size: 28rpx;
+  font-weight: 600;
+  color: var(--color-text-primary);
+}
+.form-label__count {
+  font-size: 22rpx;
+  color: var(--color-text-tertiary);
+  transition: color 0.2s;
+}
+.form-label__count--ok {
+  color: var(--color-success);
+  font-weight: 600;
+}
+
+.form-textarea {
+  width: 100%;
+  min-height: 260rpx;
+  font-size: 28rpx;
+  color: var(--color-text-primary);
+  line-height: 1.8;
+}
+
+.form-input {
+  width: 100%;
+  height: 80rpx;
+  font-size: 28rpx;
+  color: var(--color-text-primary);
+}
+
+/* --- 字数提示 --- */
+.form-hint {
+  margin-top: 10rpx;
+  font-size: 22rpx;
+  color: var(--color-text-tertiary);
+}
+.form-hint--ok {
+  color: var(--color-success);
+}
+
+/* --- 提交按钮 --- */
+.submit-section {
+  padding: 20rpx 30rpx;
+}
+
+.submit-btn {
+  width: 100%;
+  height: 96rpx;
+  background: #D5D0C8;
+  color: #A09888;
+  font-size: 30rpx;
+  font-weight: 600;
+  border-radius: var(--radius-full);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  transition: all 0.2s;
+}
+
+.submit-btn--active {
+  background: var(--color-primary-gradient);
+  color: #FFFFFF;
+  box-shadow: var(--shadow-glow);
+}
+
+.submit-btn::after { border: none; }
+
+/* --- 反馈记录 --- */
+.history-section {
+  margin: 40rpx 24rpx 0;
+}
+
+.history-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16rpx;
+}
+.history-header__title {
+  font-size: 30rpx;
+  font-weight: 700;
+  color: var(--color-text-primary);
+}
+.history-header__count {
+  font-size: 24rpx;
+  color: var(--color-text-tertiary);
+}
+
+.history-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16rpx;
+}
+
+.history-item {
+  background: var(--color-bg-card);
+  border-radius: var(--radius-md);
+  padding: 24rpx 28rpx;
+  box-shadow: var(--shadow-xs);
+}
+
+.history-item__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12rpx;
+}
+
+.history-item__status {
+  display: flex;
+  align-items: center;
+  gap: 8rpx;
+  font-size: 22rpx;
+  color: var(--color-warning);
+  font-weight: 500;
+}
+.history-item__status--read {
+  color: var(--color-success);
+}
+.history-item__status-dot {
+  width: 10rpx;
+  height: 10rpx;
+  border-radius: 50%;
+  background: currentColor;
+}
+
+.history-item__time {
+  font-size: 22rpx;
+  color: var(--color-text-tertiary);
+}
+
+.history-item__content {
+  font-size: 28rpx;
+  color: var(--color-text-secondary);
+  line-height: 1.6;
+  display: -webkit-box;
+  -webkit-line-clamp: 4;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.history-item__contact {
+  display: block;
+  margin-top: 10rpx;
+  font-size: 24rpx;
+  color: var(--color-text-tertiary);
+}
+
+.safe-bottom {
+  height: 40rpx;
+}

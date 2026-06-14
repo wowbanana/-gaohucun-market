@@ -19,7 +19,9 @@
     "pages/hot-rank/hot-rank",
     "pages/chat/chat",
     "pages/chat-list/chat-list",
-    "pages/edit-goods/edit-goods"
+    "pages/edit-goods/edit-goods",
+    "pages/rules/rules",
+    "pages/feedback/feedback"
   ],
   "window": {
     "backgroundTextStyle": "dark",

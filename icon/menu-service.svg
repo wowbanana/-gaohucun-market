@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 48 48" fill="none">
+  <!-- 耳机头梁 -->
+  <path d="M10 26V20C10 12.3 16.3 6 24 6C31.7 6 38 12.3 38 20V26" stroke="#6B6255" stroke-width="3" stroke-linecap="round"/>
+  <!-- 左耳罩 -->
+  <rect x="5" y="24" width="12" height="16" rx="5" stroke="#6B6255" stroke-width="3"/>
+  <!-- 右耳罩 -->
+  <rect x="31" y="24" width="12" height="16" rx="5" stroke="#6B6255" stroke-width="3"/>
+  <!-- 麦克风 -->
+  <path d="M24 24V34" stroke="#6B6255" stroke-width="2.5" stroke-linecap="round"/>
+  <circle cx="24" cy="37" r="2" fill="#6B6255"/>
+</svg>

@@ -1,4 +1,12 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="81" height="81" viewBox="0 0 81 81" fill="none">
-  <path d="M14 36L40.5 14L67 36V64C67 66.2 65.2 68 63 68H18C15.8 68 14 66.2 14 64V36Z" stroke="#A09888" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
-  <path d="M30 68V44H51V68" stroke="#A09888" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+  <!-- 烟囱 -->
+  <path d="M52 17V26" stroke="#A09888" stroke-width="4" stroke-linecap="round"/>
+  <!-- 屋顶 -->
+  <path d="M10 37L40.5 11L71 37" stroke="#A09888" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+  <!-- 屋体 -->
+  <rect x="17" y="37" width="47" height="31" rx="5" stroke="#A09888" stroke-width="5"/>
+  <!-- 门 -->
+  <rect x="32" y="47" width="17" height="21" rx="8" stroke="#A09888" stroke-width="4"/>
+  <!-- 门把手 -->
+  <circle cx="44.5" cy="58.5" r="2" fill="#A09888"/>
 </svg>
