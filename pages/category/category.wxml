@@ -8,81 +8,93 @@
     </view>
   </view>
 
-  <view class="category-layout">
-    <!-- 左侧父分类 -->
-    <scroll-view class="parent-sidebar" scroll-y>
-      <view
-        class="parent-item {{currentParent === item.id ? 'active' : ''}}"
-        wx:for="{{parentCategories}}"
-        wx:key="id"
-        data-id="{{item.id}}"
-        bindtap="onParentCategoryTap"
-      >
-        <text class="parent-name">{{item.name}}</text>
-      </view>
-    </scroll-view>
-
-    <!-- 右侧内容区 -->
-    <scroll-view class="content-area" scroll-y bindscrolltolower="onReachBottom">
-      <!-- 子分类标签 -->
-      <view class="sub-categories" wx:if="{{subCategories.length > 0}}">
-        <scroll-view class="sub-scroll" scroll-x>
-          <view
-            class="sub-tag {{currentSubCategory === item.id ? 'active' : ''}}"
-            wx:for="{{subCategories}}"
-            wx:key="id"
-            data-id="{{item.id}}"
-            bindtap="onSubCategoryTap"
-          >
-            <text class="sub-icon">{{item.icon}}</text>
-            <text class="sub-name">{{item.name}}</text>
-          </view>
-        </scroll-view>
-      </view>
-
-      <!-- 商品列表 -->
-      <view class="goods-list">
+  <!-- 顶部父分类 tabs -->
+  <view class="parent-tabs-wrap">
+    <scroll-view class="parent-tabs" scroll-x enhanced show-scrollbar="{{false}}">
+      <view class="parent-tabs-inner">
         <view
-          class="goods-item"
-          wx:for="{{goodsList}}"
-          wx:key="_id"
-          data-id="{{item._id}}"
-          bindtap="onGoodsTap"
+          class="parent-tab {{currentParent === item.id ? 'parent-tab--on' : ''}}"
+          wx:for="{{parentCategories}}"
+          wx:key="id"
+          data-id="{{item.id}}"
+          bindtap="onParentTap"
         >
-          <view class="goods-img-wrap">
-          <image class="goods-image" src="{{item.coverUrl || '/images/default-goods.png'}}" mode="aspectFill" />
-          <view class="my-goods-badge" wx:if="{{item.isMyGoods}}">
-            <text>我发布的</text>
-          </view>
-        </view>
-          <view class="goods-info">
-            <text class="goods-title">{{item.title}}</text>
-            <view class="goods-meta">
-              <text class="goods-price">¥{{item.price}}</text>
-              <text class="goods-unit" wx:if="{{item.priceUnit}}">/{{item.priceUnit}}</text>
-            </view>
-            <view class="goods-bottom">
-              <text class="goods-condition">{{item.condition}}</text>
-              <text class="goods-location">{{item.location || '高湖村'}}</text>
-            </view>
-          </view>
-        </view>
-      </view>
-
-      <!-- 加载状态 -->
-      <view class="loading-status">
-        <view class="loading-more" wx:if="{{loading}}">
-          <view class="loading-spinner"></view>
-          <text>加载中...</text>
-        </view>
-        <view class="no-more" wx:elif="{{!hasMore && goodsList.length > 0}}">
-          <text>— 没有更多了 —</text>
-        </view>
-        <view class="empty-result" wx:elif="{{!loading && goodsList.length === 0}}">
-          <text class="empty-icon">📦</text>
-          <text class="empty-text">该分类下暂无商品</text>
+          <text class="parent-tab-icon">{{item.icon}}</text>
+          <text class="parent-tab-name">{{item.name}}</text>
         </view>
       </view>
     </scroll-view>
   </view>
+
+  <!-- 子分类图标网格（仅在有子分类时显示） -->
+  <view class="sub-grid-wrap" wx:if="{{showSubGrid}}">
+    <view class="sub-grid">
+      <view
+        class="sub-cell {{currentSubCategory === item.id ? 'sub-cell--on' : ''}}"
+        wx:for="{{subCategories}}"
+        wx:key="id"
+        data-id="{{item.id}}"
+        bindtap="onSubTap"
+      >
+        <view class="sub-cell-icon-wrap">
+          <text class="sub-cell-icon">{{item.icon}}</text>
+        </view>
+        <text class="sub-cell-name">{{item.name}}</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 商品双列网格 -->
+  <scroll-view
+    class="goods-scroll"
+    scroll-y
+    bindscrolltolower="onReachBottom"
+    lower-threshold="100"
+  >
+    <view class="goods-grid">
+      <view
+        class="goods-card"
+        wx:for="{{goodsList}}"
+        wx:key="_id"
+        data-id="{{item._id}}"
+        bindtap="onGoodsTap"
+      >
+        <view class="goods-card-img-wrap">
+          <image class="goods-card-img" src="{{item.coverUrl || '/images/default-goods.png'}}" mode="aspectFill" />
+          <view class="my-goods-badge" wx:if="{{item.isMyGoods}}">
+            <text>我发布的</text>
+          </view>
+        </view>
+        <view class="goods-card-body">
+          <text class="goods-card-title">{{item.title}}</text>
+          <view class="goods-card-meta">
+            <text class="goods-card-price">¥{{item.price}}</text>
+            <text class="goods-card-unit" wx:if="{{item.priceUnit}}">/{{item.priceUnit}}</text>
+          </view>
+          <view class="goods-card-footer">
+            <text class="goods-card-cond">{{item.condition || '八成新'}}</text>
+            <text class="goods-card-time">{{item.publishTimeText || '刚刚'}}</text>
+          </view>
+        </view>
+      </view>
+    </view>
+
+    <!-- 加载状态 -->
+    <view class="load-status">
+      <view class="load-status-row" wx:if="{{loading}}">
+        <view class="load-spinner"></view>
+        <text>加载中...</text>
+      </view>
+      <view class="load-status-row" wx:elif="{{!hasMore && goodsList.length > 0}}">
+        <text class="load-end">— 没有更多了 —</text>
+      </view>
+      <view class="load-status-empty" wx:elif="{{!loading && goodsList.length === 0}}">
+        <text class="empty-icon">📦</text>
+        <text class="empty-text">该分类下暂无商品</text>
+      </view>
+    </view>
+
+    <!-- 底部安全区 -->
+    <view class="safe-bottom"></view>
+  </scroll-view>
 </view>
