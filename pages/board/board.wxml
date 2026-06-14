@@ -1,0 +1,89 @@
+<!--pages/board/board.wxml - 社区留言板-->
+<view class="page-container">
+  <!-- 顶部发布按钮 -->
+  <view class="publish-section">
+    <button class="btn btn-primary btn-block" bindtap="onPublishTap">
+      + 发留言
+    </button>
+  </view>
+
+  <!-- Tab切换 -->
+  <view class="tab-section">
+    <view
+      class="tab-item {{currentTab === 'latest' ? 'tab-item--active' : ''}}"
+      bindtap="onTabChange"
+      data-tab="latest"
+    >
+      <text>最新留言</text>
+    </view>
+    <view
+      class="tab-item {{currentTab === 'hot' ? 'tab-item--active' : ''}}"
+      bindtap="onTabChange"
+      data-tab="hot"
+    >
+      <text>最热留言</text>
+    </view>
+  </view>
+
+  <!-- 留言列表 -->
+  <view class="post-list">
+    <block wx:for="{{postList}}" wx:key="_id">
+      <view class="post-card" bindtap="onPostTap" data-id="{{item._id}}">
+        <!-- 作者信息 -->
+        <view class="post-header">
+          <image class="author-avatar" src="{{item.authorAvatar || '/images/default-avatar.png'}}" mode="aspectFill"></image>
+          <view class="author-info">
+            <text class="author-name">{{item.authorName || '匿名用户'}}</text>
+            <text class="post-time">{{item.publishTimeText}}</text>
+          </view>
+        </view>
+        
+        <!-- 留言内容 -->
+        <text class="post-content">{{item.content}}</text>
+        
+        <!-- 留言图片 -->
+        <view class="post-images" wx:if="{{item.images && item.images.length > 0}}">
+          <image 
+            wx:for="{{item.images}}" 
+            wx:for-item="imgUrl"
+            wx:key="*this"
+            class="post-image" 
+            src="{{imgUrl}}" 
+            mode="aspectFill"
+            catchtap="onPreviewImage"
+            data-urls="{{item.images}}"
+            data-current="{{imgUrl}}"
+          ></image>
+        </view>
+        
+        <!-- 互动栏 -->
+        <view class="post-actions">
+          <view class="action-item" catchtap="onLikeTap" data-id="{{item._id}}">
+            <text class="action-icon">{{item.isLiked ? '❤️' : '🤍'}}</text>
+            <text class="action-count">{{item.likeCountText}}</text>
+          </view>
+          <view class="action-item" catchtap="onPostTap" data-id="{{item._id}}">
+            <text class="action-icon">💬</text>
+            <text class="action-count">{{item.commentCountText}}</text>
+          </view>
+        </view>
+      </view>
+    </block>
+  </view>
+
+  <!-- 加载状态 -->
+  <view class="loading-more" wx:if="{{loading}}">
+    <text>加载中...</text>
+  </view>
+  
+  <view class="no-more" wx:if="{{!hasMore && postList.length > 0}}">
+    <text>— 已经到底了 —</text>
+  </view>
+
+  <!-- 空状态 -->
+  <view class="empty-state" wx:if="{{!loading && postList.length === 0}}">
+    <image class="empty-image" src="/images/empty-board.png" mode="aspectFit"></image>
+    <text class="empty-text">暂无留言</text>
+    <text class="empty-subtext">点击上方按钮发布第一条留言吧</text>
+  </view>
+</view>

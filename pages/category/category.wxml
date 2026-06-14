@@ -1,0 +1,88 @@
+<!-- pages/category/category.wxml - 分类浏览页 -->
+<view class="category-page">
+  <!-- 搜索入口 -->
+  <view class="search-entry" bindtap="onGoSearch">
+    <view class="search-bar">
+      <text class="search-icon">🔍</text>
+      <text class="search-placeholder">搜索你想要的宝贝...</text>
+    </view>
+  </view>
+
+  <view class="category-layout">
+    <!-- 左侧父分类 -->
+    <scroll-view class="parent-sidebar" scroll-y>
+      <view
+        class="parent-item {{currentParent === item.id ? 'active' : ''}}"
+        wx:for="{{parentCategories}}"
+        wx:key="id"
+        data-id="{{item.id}}"
+        bindtap="onParentCategoryTap"
+      >
+        <text class="parent-name">{{item.name}}</text>
+      </view>
+    </scroll-view>
+
+    <!-- 右侧内容区 -->
+    <scroll-view class="content-area" scroll-y bindscrolltolower="onReachBottom">
+      <!-- 子分类标签 -->
+      <view class="sub-categories" wx:if="{{subCategories.length > 0}}">
+        <scroll-view class="sub-scroll" scroll-x>
+          <view
+            class="sub-tag {{currentSubCategory === item.id ? 'active' : ''}}"
+            wx:for="{{subCategories}}"
+            wx:key="id"
+            data-id="{{item.id}}"
+            bindtap="onSubCategoryTap"
+          >
+            <text class="sub-icon">{{item.icon}}</text>
+            <text class="sub-name">{{item.name}}</text>
+          </view>
+        </scroll-view>
+      </view>
+
+      <!-- 商品列表 -->
+      <view class="goods-list">
+        <view
+          class="goods-item"
+          wx:for="{{goodsList}}"
+          wx:key="_id"
+          data-id="{{item._id}}"
+          bindtap="onGoodsTap"
+        >
+          <view class="goods-img-wrap">
+          <image class="goods-image" src="{{item.coverUrl || '/images/default-goods.png'}}" mode="aspectFill" />
+          <view class="my-goods-badge" wx:if="{{item.isMyGoods}}">
+            <text>我发布的</text>
+          </view>
+        </view>
+          <view class="goods-info">
+            <text class="goods-title">{{item.title}}</text>
+            <view class="goods-meta">
+              <text class="goods-price">¥{{item.price}}</text>
+              <text class="goods-unit" wx:if="{{item.priceUnit}}">/{{item.priceUnit}}</text>
+            </view>
+            <view class="goods-bottom">
+              <text class="goods-condition">{{item.condition}}</text>
+              <text class="goods-location">{{item.location || '高湖村'}}</text>
+            </view>
+          </view>
+        </view>
+      </view>
+
+      <!-- 加载状态 -->
+      <view class="loading-status">
+        <view class="loading-more" wx:if="{{loading}}">
+          <view class="loading-spinner"></view>
+          <text>加载中...</text>
+        </view>
+        <view class="no-more" wx:elif="{{!hasMore && goodsList.length > 0}}">
+          <text>— 没有更多了 —</text>
+        </view>
+        <view class="empty-result" wx:elif="{{!loading && goodsList.length === 0}}">
+          <text class="empty-icon">📦</text>
+          <text class="empty-text">该分类下暂无商品</text>
+        </view>
+      </view>
+    </scroll-view>
+  </view>
+</view>

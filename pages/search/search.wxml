@@ -1,0 +1,149 @@
+<!-- pages/search/search.wxml - 搜索页 -->
+<view class="search-page">
+  <!-- 搜索栏 -->
+  <view class="search-header">
+    <view class="search-input-wrap">
+      <text class="search-icon">🔍</text>
+      <input
+        class="search-input"
+        placeholder="搜索商品名称或描述"
+        value="{{keyword}}"
+        bindinput="onSearchInput"
+        confirm-type="search"
+        bindconfirm="onSearch"
+        focus="{{true}}"
+      />
+      <view class="clear-btn" wx:if="{{keyword}}" bindtap="onClearInput">✕</view>
+    </view>
+    <view class="search-cancel" bindtap="onSearch">搜索</view>
+  </view>
+
+  <!-- 搜索前：历史 + 热门 -->
+  <view class="search-suggest" wx:if="{{!hasSearched}}">
+    <!-- 搜索历史 -->
+    <view class="history-section" wx:if="{{searchHistory.length > 0}}">
+      <view class="section-header">
+        <text class="section-title">搜索历史</text>
+        <text class="clear-history" bindtap="onClearHistory">🗑️ 清空</text>
+      </view>
+      <view class="history-tags">
+        <view
+          class="history-tag"
+          wx:for="{{searchHistory}}"
+          wx:key="index"
+          data-keyword="{{item}}"
+          bindtap="onHistoryTap"
+        >
+          {{item}}
+        </view>
+      </view>
+    </view>
+
+    <!-- 热门搜索 -->
+    <view class="hot-section" wx:if="{{hotKeywords.length > 0}}">
+      <view class="section-header">
+        <text class="section-title">🔥 热门搜索</text>
+      </view>
+      <view class="hot-tags">
+        <view
+          class="hot-tag"
+          wx:for="{{hotKeywords}}"
+          wx:key="keyword"
+          data-keyword="{{item.keyword}}"
+          bindtap="onHotKeywordTap"
+        >
+          <text class="hot-rank {{index < 3 ? 'top' : ''}}">{{index + 1}}</text>
+          <text class="hot-text">{{item.keyword}}</text>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 搜索结果 -->
+  <view class="search-result" wx:if="{{hasSearched}}">
+    <!-- 排序和筛选 -->
+    <view class="filter-bar">
+      <view class="sort-options">
+        <view
+          class="sort-item {{sortBy === 'time' ? 'active' : ''}}"
+          data-sort="time"
+          bindtap="onSortChange"
+        >最新</view>
+        <view
+          class="sort-item {{sortBy === 'price_asc' ? 'active' : ''}}"
+          data-sort="price_asc"
+          bindtap="onSortChange"
+        >价格↑</view>
+        <view
+          class="sort-item {{sortBy === 'price_desc' ? 'active' : ''}}"
+          data-sort="price_desc"
+          bindtap="onSortChange"
+        >价格↓</view>
+      </view>
+      <view class="filter-btn {{showFilter ? 'active' : ''}}" bindtap="onToggleFilter">
+        筛选 {{filterCondition ? '·1' : ''}}
+      </view>
+    </view>
+
+    <!-- 筛选面板 -->
+    <view class="filter-panel" wx:if="{{showFilter}}">
+      <view class="filter-section">
+        <text class="filter-label">成色</text>
+        <view class="filter-options">
+          <view
+            class="filter-option {{filterCondition === item ? 'active' : ''}}"
+            wx:for="{{['全新', '九成新', '八成新', '七成新']}}"
+            wx:key="index"
+            data-value="{{item}}"
+            bindtap="onConditionFilter"
+          >{{item}}</view>
+          <view
+            class="filter-option {{filterCondition === '' ? 'active' : ''}}"
+            data-value=""
+            bindtap="onConditionFilter"
+          >不限</view>
+        </view>
+      </view>
+    </view>
+
+    <!-- 商品列表 -->
+    <view class="goods-list" wx:if="{{goodsList.length > 0}}">
+      <view
+        class="goods-item"
+        wx:for="{{goodsList}}"
+        wx:key="_id"
+        data-id="{{item._id}}"
+        bindtap="onGoodsTap"
+      >
+        <image class="goods-image" src="{{item.images[0]}}" mode="aspectFill" />
+        <view class="goods-info">
+          <text class="goods-title">{{item.title}}</text>
+          <view class="goods-meta">
+            <text class="goods-price">¥{{item.price}}</text>
+            <text class="goods-unit" wx:if="{{item.priceUnit}}">/{{item.priceUnit}}</text>
+          </view>
+          <view class="goods-bottom">
+            <text class="goods-condition">{{item.condition}}</text>
+            <text class="goods-location">{{item.location || '高湖村'}}</text>
+          </view>
+        </view>
+      </view>
+    </view>
+
+    <!-- 空结果 -->
+    <view class="empty-result" wx:if="{{!loading && goodsList.length === 0}}">
+      <text class="empty-icon">🔍</text>
+      <text class="empty-text">未找到"{{keyword}}"相关商品</text>
+      <text class="empty-hint">换个关键词试试？</text>
+    </view>
+
+    <!-- 加载状态 -->
+    <view class="loading-status" wx:if="{{loading}}">
+      <view class="loading-spinner"></view>
+      <text>搜索中...</text>
+    </view>
+    <view class="no-more" wx:elif="{{!hasMore && goodsList.length > 0}}">
+      <text>— 没有更多了 —</text>
+    </view>
+  </view>
+</view>

@@ -1,0 +1,1 @@
+{"name": "seedData", "version": "1.0.0", "description": "测试数据种子脚本 - 插入示例数据用于演示和测试", "main": "index.js", "dependencies": {"wx-server-sdk": "~2.6.3"}}

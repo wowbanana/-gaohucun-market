@@ -1,0 +1,9 @@
+{
+  "name": "getNotifications",
+  "version": "1.0.0",
+  "description": "获取评论回复通知",
+  "main": "index.js",
+  "dependencies": {
+    "wx-server-sdk": "latest"
+  }
+}

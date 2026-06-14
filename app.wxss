@@ -1,0 +1,401 @@
+/* app.wxss - 全局样式 · 湖畔晨光 设计系统 */
+
+/* ========== CSS 变量定义 ========== */
+page {
+  /* ── 主色调：湖蓝（呼应"高湖"村名）── */
+  --color-primary: #3D7A7C;
+  --color-primary-light: #EDF4F4;
+  --color-primary-dark: #2D5E5F;
+  --color-primary-gradient: linear-gradient(135deg, #3D7A7C 0%, #5A9FA0 100%);
+
+  /* ── 功能色 ── */
+  --color-price: #E07040;
+  --color-price-bg: #FEF0EA;
+  --color-success: #6B9E5A;
+  --color-success-bg: #EFF7EB;
+  --color-warning: #E8A840;
+  --color-warning-bg: #FEF8EB;
+  --color-danger: #D9544B;
+  --color-danger-bg: #FEF0EE;
+
+  /* ── 文本颜色 ── */
+  --color-text-primary: #2C2416;
+  --color-text-secondary: #6B6255;
+  --color-text-tertiary: #A09888;
+  --color-text-inverse: #FFFFFF;
+
+  /* ── 背景颜色 ── */
+  --color-bg-page: #F7F4F0;
+  --color-bg-card: #FFFFFF;
+  --color-bg-tag: #F2EEE8;
+  --color-bg-input: #F9F8F6;
+
+  /* ── 边框颜色 ── */
+  --color-border: #E5E0D8;
+  --color-border-light: #F0ECE6;
+
+  /* ── 字体规范（适老加大）── */
+  --font-size-display: 40rpx;
+  --font-size-h1: 36rpx;
+  --font-size-h2: 32rpx;
+  --font-size-body: 30rpx;
+  --font-size-caption: 26rpx;
+  --font-size-tag: 24rpx;
+
+  /* ── 间距 ── */
+  --spacing-xs: 8rpx;
+  --spacing-sm: 12rpx;
+  --spacing-md: 16rpx;
+  --spacing-lg: 24rpx;
+  --spacing-xl: 32rpx;
+  --spacing-2xl: 48rpx;
+
+  /* ── 圆角 ── */
+  --radius-sm: 8rpx;
+  --radius-md: 14rpx;
+  --radius-lg: 20rpx;
+  --radius-xl: 24rpx;
+  --radius-full: 9999rpx;
+
+  /* ── 阴影 ── */
+  --shadow-xs: 0 1rpx 4rpx rgba(44, 36, 22, 0.04);
+  --shadow-sm: 0 2rpx 8rpx rgba(44, 36, 22, 0.06);
+  --shadow-md: 0 4rpx 16rpx rgba(44, 36, 22, 0.08);
+  --shadow-lg: 0 8rpx 28rpx rgba(44, 36, 22, 0.10);
+  --shadow-glow: 0 4rpx 20rpx rgba(61, 122, 124, 0.25);
+
+  /* ── 过渡 ── */
+  --transition-fast: 0.15s ease-out;
+  --transition-normal: 0.25s ease-out;
+  --transition-slow: 0.35s ease-out;
+
+  /* 应用到页面 */
+  background-color: var(--color-bg-page);
+  font-size: var(--font-size-body);
+  color: var(--color-text-primary);
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
+  line-height: 1.6;
+}
+
+/* ========== 通用工具类 ========== */
+
+/* Flex 布局 */
+.flex { display: flex; }
+.flex-col { display: flex; flex-direction: column; }
+.flex-row { display: flex; flex-direction: row; }
+.flex-wrap { flex-wrap: wrap; }
+.items-center { align-items: center; }
+.items-start { align-items: flex-start; }
+.items-end { align-items: flex-end; }
+.justify-center { justify-content: center; }
+.justify-between { justify-content: space-between; }
+.justify-around { justify-content: space-around; }
+.flex-1 { flex: 1; }
+
+/* 文本样式 */
+.text-center { text-align: center; }
+.text-left { text-align: left; }
+.text-right { text-align: right; }
+.font-bold { font-weight: bold; }
+.font-medium { font-weight: 500; }
+
+/* 文本截断 */
+.text-ellipsis {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.text-ellipsis-2 {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+}
+
+/* 间距工具类 */
+.mt-sm { margin-top: var(--spacing-sm); }
+.mt-md { margin-top: var(--spacing-md); }
+.mt-lg { margin-top: var(--spacing-lg); }
+.mt-xl { margin-top: var(--spacing-xl); }
+.mb-sm { margin-bottom: var(--spacing-sm); }
+.mb-md { margin-bottom: var(--spacing-md); }
+.mb-lg { margin-bottom: var(--spacing-lg); }
+.ml-sm { margin-left: var(--spacing-sm); }
+.ml-md { margin-left: var(--spacing-md); }
+.mr-sm { margin-right: var(--spacing-sm); }
+.mr-md { margin-right: var(--spacing-md); }
+.p-sm { padding: var(--spacing-sm); }
+.p-md { padding: var(--spacing-md); }
+.p-lg { padding: var(--spacing-lg); }
+.p-xl { padding: var(--spacing-xl); }
+.px-sm { padding-left: var(--spacing-sm); padding-right: var(--spacing-sm); }
+.px-md { padding-left: var(--spacing-md); padding-right: var(--spacing-md); }
+.px-lg { padding-left: var(--spacing-lg); padding-right: var(--spacing-lg); }
+.py-sm { padding-top: var(--spacing-sm); padding-bottom: var(--spacing-sm); }
+.py-md { padding-top: var(--spacing-md); padding-bottom: var(--spacing-md); }
+.py-lg { padding-top: var(--spacing-lg); padding-bottom: var(--spacing-lg); }
+
+/* ========== 组件样式 ========== */
+
+/* ── 卡片 ── */
+.card {
+  background-color: var(--color-bg-card);
+  border-radius: var(--radius-xl);
+  padding: var(--spacing-lg);
+  margin-bottom: var(--spacing-md);
+  box-shadow: var(--shadow-sm);
+  transition: box-shadow var(--transition-normal), transform var(--transition-fast);
+}
+
+.card:active {
+  box-shadow: var(--shadow-xs);
+  transform: scale(0.99);
+}
+
+/* ── 按钮（适老设计：大尺寸、高对比度）── */
+.btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100rpx;
+  border-radius: var(--radius-lg);
+  font-size: 34rpx;
+  font-weight: 600;
+  border: none;
+  line-height: 1;
+  letter-spacing: 2rpx;
+  transition: all var(--transition-fast);
+}
+
+.btn::after {
+  border: none;
+}
+
+.btn-primary {
+  background: var(--color-primary-gradient);
+  color: var(--color-text-inverse);
+  box-shadow: var(--shadow-glow);
+}
+
+.btn-primary:active {
+  opacity: 0.88;
+  transform: scale(0.97);
+  box-shadow: 0 2rpx 10rpx rgba(61, 122, 124, 0.2);
+}
+
+.btn-secondary {
+  background-color: var(--color-bg-tag);
+  color: var(--color-text-primary);
+}
+
+.btn-secondary:active {
+  background-color: var(--color-border);
+  transform: scale(0.97);
+}
+
+.btn-outline {
+  background-color: transparent;
+  border: 2rpx solid var(--color-primary);
+  color: var(--color-primary);
+}
+
+.btn-outline:active {
+  background-color: var(--color-primary-light);
+  transform: scale(0.97);
+}
+
+.btn-danger {
+  background-color: var(--color-danger);
+  color: var(--color-text-inverse);
+}
+
+.btn-danger:active {
+  opacity: 0.85;
+  transform: scale(0.97);
+}
+
+.btn-block { width: 100%; }
+.btn-lg { height: 108rpx; font-size: 36rpx; }
+.btn-md { height: 96rpx; font-size: 32rpx; }
+.btn-sm { height: 80rpx; font-size: 28rpx; }
+
+/* ── 标签 ── */
+.tag {
+  display: inline-flex;
+  align-items: center;
+  padding: 6rpx 16rpx;
+  border-radius: var(--radius-full);
+  font-size: var(--font-size-tag);
+  font-weight: 500;
+  line-height: 1.5;
+}
+
+.tag-primary {
+  background-color: var(--color-primary-light);
+  color: var(--color-primary);
+}
+
+.tag-price {
+  background-color: var(--color-price-bg);
+  color: var(--color-price);
+  font-weight: 600;
+}
+
+.tag-success {
+  background-color: var(--color-success-bg);
+  color: var(--color-success);
+}
+
+.tag-warning {
+  background-color: var(--color-warning-bg);
+  color: var(--color-warning);
+}
+
+/* ── 输入框 ── */
+.input {
+  height: 96rpx;
+  font-size: 34rpx;
+  padding: 0 var(--spacing-lg);
+  border: 2rpx solid var(--color-border);
+  border-radius: var(--radius-lg);
+  background-color: var(--color-bg-input);
+  color: var(--color-text-primary);
+  transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.input:focus {
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 4rpx rgba(61, 122, 124, 0.08);
+}
+
+/* ── 分割线 ── */
+.divider {
+  height: 1rpx;
+  background-color: var(--color-border-light);
+  margin: var(--spacing-md) 0;
+}
+
+/* ── 空状态 ── */
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: var(--spacing-2xl) var(--spacing-lg);
+}
+
+.empty-state .empty-image {
+  width: 280rpx;
+  height: 280rpx;
+  margin-bottom: var(--spacing-lg);
+  opacity: 0.85;
+}
+
+.empty-state .empty-text {
+  font-size: var(--font-size-h2);
+  color: var(--color-text-tertiary);
+  text-align: center;
+}
+
+.empty-state .empty-subtext {
+  font-size: var(--font-size-caption);
+  color: var(--color-text-tertiary);
+  margin-top: var(--spacing-sm);
+}
+
+/* ── 加载状态 ── */
+.loading-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--spacing-xl);
+}
+
+/* ── 价格样式 ── */
+.price {
+  color: var(--color-price);
+  font-weight: 700;
+}
+
+.price-lg { font-size: var(--font-size-display); }
+.price-md { font-size: var(--font-size-h1); }
+
+/* ── 安全区域适配 ── */
+.safe-area-bottom {
+  padding-bottom: env(safe-area-inset-bottom);
+}
+
+/* ── 图片样式 ── */
+.img-cover {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.img-contain {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+/* ========== 动画 ========== */
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(16rpx); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(32rpx); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes scaleIn {
+  from { opacity: 0; transform: scale(0.92); }
+  to   { opacity: 1; transform: scale(1); }
+}
+
+@keyframes shimmer {
+  0%   { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+@keyframes ripple {
+  0%   { box-shadow: 0 0 0 0 rgba(61, 122, 124, 0.35); }
+  100% { box-shadow: 0 0 0 24rpx rgba(61, 122, 124, 0); }
+}
+
+.fade-in {
+  animation: fadeIn 0.35s ease-out;
+}
+
+.fade-in-up {
+  animation: fadeInUp 0.4s ease-out;
+}
+
+.scale-in {
+  animation: scaleIn 0.3s ease-out;
+}
+
+/* ── 骨架屏 ── */
+.skeleton {
+  background: linear-gradient(
+    90deg,
+    var(--color-border-light) 0%,
+    var(--color-bg-tag) 40%,
+    var(--color-border-light) 80%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.5s ease-in-out infinite;
+  border-radius: var(--radius-sm);
+}
+
+/* ── 点击反馈 ── */
+.clickable:active {
+  opacity: 0.75;
+  transform: scale(0.98);
+}
+
+/* ========== 导航栏覆盖（微信原生导航栏配色） ========== */
+/* 在 app.json 中设置 navigationBarBackgroundColor 为 #3D7A7C */

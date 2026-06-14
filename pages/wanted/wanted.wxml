@@ -1,0 +1,85 @@
+<!--pages/wanted/wanted.wxml - 求购广场-->
+<view class="page-container">
+  <!-- 顶部发布按钮 -->
+  <view class="publish-section">
+    <button class="btn btn-primary btn-block" bindtap="onPublishTap">
+      + 发布求购信息
+    </button>
+  </view>
+
+  <!-- Tab切换 -->
+  <view class="tab-section">
+    <view 
+      class="tab-item {{currentTab === 'latest' ? 'tab-item--active' : ''}}" 
+      bindtap="onTabChange"
+      data-tab="latest"
+    >
+      <text>最新求购</text>
+    </view>
+    <view 
+      class="tab-item {{currentTab === 'mine' ? 'tab-item--active' : ''}}" 
+      bindtap="onTabChange"
+      data-tab="mine"
+    >
+      <text>我的求购</text>
+    </view>
+  </view>
+
+  <!-- 求购列表 -->
+  <view class="wanted-list">
+    <block wx:for="{{wantedList}}" wx:key="_id">
+      <view class="wanted-card" bindtap="onWantedTap" data-id="{{item._id}}">
+        <!-- 状态标签 -->
+        <view class="wanted-status {{item.statusClass}}">
+          <text>{{item.statusText}}</text>
+        </view>
+        
+        <!-- 求购标题 -->
+        <text class="wanted-title">{{item.title}}</text>
+        
+        <!-- 预算 -->
+        <view class="wanted-budget">
+          <text class="budget-label">预算：</text>
+          <text class="budget-value">{{item.budgetText}}</text>
+        </view>
+        
+        <!-- 求购描述 -->
+        <text class="wanted-description" wx:if="{{item.description}}">{{item.description}}</text>
+        
+        <!-- 底部信息 -->
+        <view class="wanted-footer">
+          <view class="wanted-meta">
+            <text class="meta-location">📍 {{item.locationGroup || '未知'}}</text>
+            <text class="meta-time">{{item.publishTimeText}}</text>
+          </view>
+          
+          <!-- 响应按钮 -->
+          <button 
+            class="btn btn-primary btn-sm respond-btn" 
+            catchtap="onRespondTap"
+            data-id="{{item._id}}"
+            wx:if="{{currentTab !== 'mine' && item.status === 'open'}}"
+          >
+            我有，联系买家
+          </button>
+        </view>
+      </view>
+    </block>
+  </view>
+
+  <!-- 加载状态 -->
+  <view class="loading-more" wx:if="{{loading}}">
+    <text>加载中...</text>
+  </view>
+  
+  <view class="no-more" wx:if="{{!hasMore && wantedList.length > 0}}">
+    <text>— 已经到底了 —</text>
+  </view>
+
+  <!-- 空状态 -->
+  <view class="empty-state" wx:if="{{!loading && wantedList.length === 0}}">
+    <image class="empty-image" src="/images/empty-wanted.png" mode="aspectFit"></image>
+    <text class="empty-text">暂无求购信息</text>
+    <text class="empty-subtext">点击上方按钮发布一条吧</text>
+  </view>
+</view>

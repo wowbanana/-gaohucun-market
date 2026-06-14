@@ -1,0 +1,134 @@
+<!-- pages/edit-goods/edit-goods.wxml - 编辑商品页 -->
+<view class="page">
+  <scroll-view class="form-scroll" scroll-y enhanced show-scrollbar="{{false}}">
+
+    <!-- 加载状态 -->
+    <view class="loading-container" wx:if="{{loading}}">
+      <text>加载中...</text>
+    </view>
+
+    <block wx:if="{{!loading && goods}}">
+
+      <!-- ===== 商品图片 ===== -->
+      <view class="card">
+        <view class="card__header">
+          <text class="card__title">📷 商品图片</text>
+          <text class="card__badge">必填</text>
+          <text class="card__hint">{{imageList.length}}/9</text>
+        </view>
+        <view class="image-grid">
+          <view class="image-cell {{index === 0 ? 'image-cell--cover' : ''}}"
+            wx:for="{{imageList}}" wx:key="*this">
+            <image class="image-cell__img" src="{{item}}" mode="aspectFill"
+              bindtap="onPreviewImage" data-index="{{index}}" />
+            <view class="image-cell__cover" wx:if="{{index === 0}}">封面</view>
+            <view class="image-cell__del" bindtap="onDeleteImage" data-index="{{index}}">
+              <text>✕</text>
+            </view>
+          </view>
+          <view class="image-cell image-cell--add" bindtap="onChooseImage"
+            wx:if="{{imageList.length < 9}}">
+            <text class="image-cell__plus">+</text>
+            <text class="image-cell__label">添加</text>
+          </view>
+        </view>
+      </view>
+
+      <!-- ===== 商品标题 ===== -->
+      <view class="card">
+        <view class="card__header">
+          <text class="card__title">📝 商品标题</text>
+          <text class="card__badge">必填</text>
+        </view>
+        <input class="input-lg" placeholder="例：自种大白菜 新鲜采摘"
+          placeholder-class="ph" value="{{formData.title}}"
+          bindinput="onTitleInput" maxlength="30" />
+        <view class="char-hint">{{formData.title.length}}/30</view>
+      </view>
+
+      <!-- ===== 商品描述 ===== -->
+      <view class="card">
+        <view class="card__header">
+          <text class="card__title">📄 商品描述</text>
+          <text class="card__hint">选填</text>
+        </view>
+        <textarea class="textarea-lg" placeholder="描述商品的特点、成色、新旧程度等..."
+          placeholder-class="ph" value="{{formData.description}}"
+          bindinput="onDescriptionInput" maxlength="500" auto-height />
+        <view class="char-hint">{{formData.description.length}}/500</view>
+      </view>
+
+      <!-- ===== 商品分类 ===== -->
+      <view class="card">
+        <view class="card__header">
+          <text class="card__title">📂 商品分类</text>
+          <text class="card__badge">必填</text>
+        </view>
+        <view class="chip-grid">
+          <view class="chip {{formData.category === item.id ? 'chip--active' : ''}}"
+            wx:for="{{categories}}" wx:key="id"
+            bindtap="onCategoryTap" data-id="{{item.id}}">
+            <text class="chip__icon">{{item.icon}}</text>
+            <text class="chip__text">{{item.name}}</text>
+          </view>
+        </view>
+      </view>
+
+      <!-- ===== 价格 ===== -->
+      <view class="card">
+        <view class="card__header">
+          <text class="card__title">💰 价格</text>
+          <text class="card__badge">必填</text>
+        </view>
+        <view class="price-row">
+          <view class="price-input-wrap">
+            <text class="price-symbol">¥</text>
+            <input class="price-input" type="digit" placeholder="0"
+              placeholder-class="ph" value="{{formData.price}}"
+              bindinput="onPriceInput" />
+          </view>
+          <picker mode="selector" range="{{priceUnits}}" bindchange="onPriceUnitChange">
+            <view class="unit-btn">{{formData.priceUnit}}</view>
+          </picker>
+        </view>
+      </view>
+
+      <!-- ===== 成色 ===== -->
+      <view class="card">
+        <view class="card__header">
+          <text class="card__title">✨ 商品成色</text>
+          <text class="card__badge">必填</text>
+        </view>
+        <picker mode="selector" range="{{conditionOptions}}" bindchange="onConditionChange">
+          <view class="picker-display {{formData.conditionDisplay ? '' : 'picker-display--empty'}}">
+            <text>{{formData.conditionDisplay || '请选择成色'}}</text>
+            <text class="picker-chevron">›</text>
+          </view>
+        </picker>
+      </view>
+
+      <!-- ===== 手机号（选填） ===== -->
+      <view class="card">
+        <view class="card__header">
+          <text class="card__title">📞 手机号</text>
+          <text class="card__hint">选填</text>
+        </view>
+        <input class="input-lg" placeholder="填写后买家可直接电话联系"
+          placeholder-class="ph" value="{{formData.contactInfo}}"
+          bindinput="onContactInput" type="number" maxlength="11" />
+      </view>
+
+      <!-- ===== 操作按钮 ===== -->
+      <view class="actions">
+        <button class="btn-submit" bindtap="onSave"
+          disabled="{{!canSubmit || submitting}}">
+          {{submitting ? '保存中...' : '保存修改'}}
+        </button>
+        <button class="btn-cancel" bindtap="onCancel">取消</button>
+      </view>
+
+    </block>
+
+    <view class="bottom-safe"></view>
+  </scroll-view>
+</view>

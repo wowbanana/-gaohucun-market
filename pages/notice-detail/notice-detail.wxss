@@ -1,0 +1,52 @@
+/* pages/notice-detail/notice-detail.wxss - 公告详情 · 湖畔晨光 */
+
+.notice-detail-page {
+  min-height: 100vh;
+  background: var(--color-bg-page);
+  padding: 20rpx;
+}
+
+.loading-container { display: flex; justify-content: center; padding-top: 200rpx; }
+
+.loading-spinner {
+  width: 60rpx; height: 60rpx; border: 4rpx solid var(--color-border-light);
+  border-top-color: var(--color-primary); border-radius: 50%; animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin { to { transform: rotate(360deg); } }
+
+.notice-card {
+  background: var(--color-bg-card); border-radius: var(--radius-xl); padding: 30rpx;
+  box-shadow: var(--shadow-xs);
+}
+
+.notice-tag {
+  display: inline-block; padding: 6rpx 16rpx; border-radius: var(--radius-sm);
+  font-size: 22rpx; font-weight: 500; background: var(--color-primary-light);
+  color: var(--color-primary); margin-bottom: 14rpx;
+}
+
+.notice-tag.important { background: var(--color-danger-bg); color: var(--color-danger); }
+
+.notice-title {
+  font-size: 36rpx; font-weight: 700; color: var(--color-text-primary);
+  line-height: 1.5; margin-bottom: 14rpx;
+}
+
+.notice-meta {
+  display: flex; align-items: center; gap: 20rpx; margin-bottom: 22rpx;
+  padding-bottom: 22rpx; border-bottom: 1rpx solid var(--color-border-light);
+}
+
+.meta-author,
+.meta-time { font-size: 24rpx; color: var(--color-text-tertiary); }
+
+.notice-content {
+  font-size: 30rpx; color: var(--color-text-secondary); line-height: 1.8; word-break: break-all;
+}
+
+.notice-images { margin-top: 22rpx; }
+
+.notice-image {
+  width: 100%; border-radius: var(--radius-md); margin-bottom: 10rpx;
+}

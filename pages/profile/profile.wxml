@@ -1,0 +1,86 @@
+<!--pages/profile/profile.wxml - 个人中心-->
+<view class="page-container">
+  <!-- 用户信息区域 -->
+  <view class="user-section">
+    <block wx:if="{{isLoggedIn && userInfo}}">
+      <!-- 已登录 -->
+      <image class="user-avatar" src="{{userInfo.avatarUrl || '/images/default-avatar.png'}}" mode="aspectFill"></image>
+      <view class="user-info">
+        <text class="user-name">{{userInfo.nickName || '未设置昵称'}}</text>
+      </view>
+    </block>
+    
+    <block wx:else>
+      <!-- 未登录 -->
+      <view class="user-avatar user-avatar--default">
+        <text class="avatar-placeholder">👤</text>
+      </view>
+      <view class="user-info">
+        <button class="login-btn" bindtap="onLoginTap">点击登录</button>
+        <text class="login-tip">登录后可使用完整功能</text>
+      </view>
+    </block>
+  </view>
+
+  <!-- 统计数据 -->
+  <view class="stats-section">
+    <view class="stats-item" bindtap="onMenuTap" data-id="my_goods">
+      <text class="stats-count">{{stats.publishCount || 0}}</text>
+      <text class="stats-label">我的发布</text>
+    </view>
+    <view class="stats-divider"></view>
+    <view class="stats-item" bindtap="onMenuTap" data-id="my_favorites">
+      <text class="stats-count">{{stats.favoriteCount || 0}}</text>
+      <text class="stats-label">我的收藏</text>
+    </view>
+    <view class="stats-divider"></view>
+    <view class="stats-item {{stats.unreadMsgCount > 0 ? 'stats-item--alert' : ''}}" bindtap="onMenuTap" data-id="my_messages">
+      <text class="stats-count {{stats.unreadMsgCount > 0 ? 'stats-count--alert' : ''}}">{{stats.unreadMsgCount || 0}}</text>
+      <text class="stats-label">我的消息</text>
+      <view class="stats-dot" wx:if="{{stats.unreadMsgCount > 0}}"></view>
+    </view>
+  </view>
+
+  <!-- 菜单列表 -->
+  <view class="menu-section">
+    <view
+      class="menu-item"
+      wx:for="{{menuList}}"
+      wx:key="id"
+      bindtap="onMenuTap"
+      data-id="{{item.id}}"
+    >
+      <text class="menu-icon">{{item.icon}}</text>
+      <text class="menu-name">{{item.name}}</text>
+      <view class="menu-right">
+        <text class="menu-count {{item.id === 'my_messages' && item.count > 0 ? 'menu-count--alert' : ''}}" wx:if="{{item.count > 0}}">{{item.count}}</text>
+        <text class="menu-arrow">></text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 设置菜单 -->
+  <view class="menu-section">
+    <view 
+      class="menu-item" 
+      wx:for="{{settingList}}" 
+      wx:key="id"
+      bindtap="onSettingTap"
+      data-id="{{item.id}}"
+    >
+      <text class="menu-icon">{{item.icon}}</text>
+      <text class="menu-name">{{item.name}}</text>
+      <text class="menu-arrow">></text>
+    </view>
+  </view>
+
+  <!-- 退出登录 -->
+  <view class="logout-section" wx:if="{{isLoggedIn}}">
+    <button class="logout-btn" bindtap="onLogoutTap">退出登录</button>
+  </view>
+
+  <!-- 版本信息 -->
+  <view class="version-section">
+    <text class="version-text">高湖村二手市场 v1.0.0</text>
+  </view>
+</view>

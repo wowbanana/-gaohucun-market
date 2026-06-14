@@ -1,0 +1,190 @@
+/* pages/publish-board/publish-board.wxss - 发布留言 · 湖畔晨光 */
+
+.page {
+  min-height: 100vh;
+  background: var(--color-bg-page, #F7F4F0);
+}
+
+.form-scroll {
+  height: 100vh;
+  padding: 16rpx 0;
+}
+
+/* ========== 卡片容器 ========== */
+.card {
+  background: var(--color-bg-card, #FFFFFF);
+  border-radius: 20rpx;
+  padding: 28rpx;
+  margin: 0 24rpx 16rpx;
+  box-shadow: 0 2rpx 12rpx rgba(44, 36, 22, 0.04);
+}
+
+.card__header {
+  display: flex;
+  align-items: center;
+  gap: 12rpx;
+  margin-bottom: 18rpx;
+}
+
+.card__title {
+  font-size: 30rpx;
+  font-weight: 600;
+  color: var(--color-text-primary, #2C2416);
+}
+
+.card__badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 4rpx 14rpx;
+  font-size: 22rpx;
+  font-weight: 600;
+  color: var(--color-primary, #3D7A7C);
+  background: var(--color-primary-light, #EEF6F6);
+  border-radius: 99rpx;
+}
+
+.card__hint {
+  margin-left: auto;
+  font-size: 24rpx;
+  color: var(--color-text-tertiary, #A09888);
+}
+
+/* ========== 输入框 ========== */
+.input-title {
+  width: 100%;
+  min-height: 80rpx;
+  font-size: 32rpx;
+  font-weight: 500;
+  color: var(--color-text-primary, #2C2416);
+  padding: 18rpx 24rpx;
+  background: var(--color-bg-input, #F7F4F0);
+  border-radius: 14rpx;
+  box-sizing: border-box;
+  line-height: 1.5;
+}
+
+.input-lg {
+  width: 100%;
+  font-size: 30rpx;
+  color: var(--color-text-primary, #2C2416);
+  padding: 14rpx 20rpx;
+  background: var(--color-bg-input, #F7F4F0);
+  border-radius: 14rpx;
+  box-sizing: border-box;
+}
+
+.textarea-lg {
+  width: 100%;
+  min-height: 220rpx;
+  font-size: 28rpx;
+  color: var(--color-text-primary, #2C2416);
+  padding: 16rpx 20rpx;
+  background: var(--color-bg-input, #F7F4F0);
+  border-radius: 14rpx;
+  box-sizing: border-box;
+  line-height: 1.7;
+}
+
+.ph {
+  color: var(--color-text-placeholder, #C4BCB3);
+}
+
+.char-hint {
+  text-align: right;
+  font-size: 22rpx;
+  color: var(--color-text-tertiary, #A09888);
+  margin-top: 8rpx;
+}
+
+/* ========== 图片上传 ========== */
+.image-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14rpx;
+}
+
+.image-cell {
+  position: relative;
+  aspect-ratio: 1;
+  border-radius: 14rpx;
+  overflow: hidden;
+  background: var(--color-bg-input, #F7F4F0);
+}
+
+.image-cell__img {
+  width: 100%;
+  height: 100%;
+}
+
+.image-cell__del {
+  position: absolute;
+  top: 8rpx;
+  right: 8rpx;
+  width: 40rpx;
+  height: 40rpx;
+  border-radius: 50%;
+  background: rgba(44, 36, 22, 0.55);
+  color: #FFFFFF;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22rpx;
+  font-weight: 600;
+}
+
+.image-cell--add {
+  border: 2rpx dashed var(--color-border, #D9D0C7);
+  background: var(--color-bg-input, #F7F4F0);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.image-cell__plus {
+  font-size: 48rpx;
+  color: var(--color-text-tertiary, #A09888);
+  line-height: 1;
+}
+
+.image-cell__label {
+  font-size: 22rpx;
+  color: var(--color-text-tertiary, #A09888);
+  margin-top: 4rpx;
+}
+
+/* ========== 操作按钮 ========== */
+.actions {
+  padding: 12rpx 24rpx 28rpx;
+}
+
+.btn-publish {
+  width: 100%;
+  height: 100rpx;
+  font-size: 34rpx;
+  font-weight: 600;
+  color: #FFFFFF;
+  background: linear-gradient(135deg, #3D7A7C, #5A9FA0);
+  border: none;
+  border-radius: 50rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  letter-spacing: 2rpx;
+  box-shadow: 0 8rpx 24rpx rgba(61, 122, 124, 0.30);
+}
+
+.btn-publish[disabled] {
+  background: var(--color-bg-tag, #E6E1DA);
+  color: var(--color-text-tertiary, #A09888);
+  box-shadow: none;
+}
+
+.btn-publish::after {
+  border: none;
+}
+
+/* ========== 底部安全区 ========== */
+.bottom-safe {
+  height: calc(40rpx + env(safe-area-inset-bottom));
+}

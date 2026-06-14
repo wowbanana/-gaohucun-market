@@ -1,0 +1,132 @@
+<!-- pages/index/index.wxml - 首页 -->
+<view class="page">
+
+  <!-- ===== 顶部横幅 ===== -->
+  <view class="hero">
+    <view class="hero__inner">
+      <text class="hero__title">高湖村二手市场</text>
+      <text class="hero__sub">村里人的闲置交易平台</text>
+      <view class="hero__search" bindtap="onSearchTap">
+        <text class="hero__search-icon">🔍</text>
+        <text class="hero__search-text">搜一搜村里的好物...</text>
+      </view>
+    </view>
+    <!-- 装饰波纹 -->
+    <view class="hero__wave"></view>
+  </view>
+
+  <!-- ===== 公告栏（醒目大卡片）===== -->
+  <view class="bulletin" wx:if="{{notices.length > 0}}">
+    <view class="bulletin__header">
+      <view class="bulletin__badge">
+        <text class="bulletin__badge-dot"></text>
+        <text>村务公告</text>
+      </view>
+      <text class="bulletin__count">{{notices.length}}条</text>
+    </view>
+    <swiper class="bulletin__swiper" autoplay vertical circular interval="{{4000}}" duration="{{600}}">
+      <swiper-item wx:for="{{notices}}" wx:key="_id">
+        <view class="bulletin__item" bindtap="onNoticeTap" data-id="{{item._id}}">
+          <text class="bulletin__tag {{item.type === 'urgent' ? 'bulletin__tag--urgent' : ''}}">
+            {{item.type === 'urgent' ? '紧急' : '公告'}}
+          </text>
+          <text class="bulletin__title">{{item.title}}</text>
+          <text class="bulletin__arrow">›</text>
+        </view>
+      </swiper-item>
+    </swiper>
+  </view>
+
+  <!-- ===== 分类标签 ===== -->
+  <scroll-view class="cat-scroll" scroll-x enhanced show-scrollbar="{{false}}">
+    <view class="cat-list">
+      <view class="cat-chip {{currentCategory === item.id ? 'cat-chip--on' : ''}}"
+        wx:for="{{categories}}" wx:key="id"
+        bindtap="onCategoryTap" data-id="{{item.id}}">
+        <text>{{item.name}}</text>
+      </view>
+    </view>
+  </scroll-view>
+
+  <!-- ===== 排序 ===== -->
+  <view class="sort-row">
+    <view class="sort-tab {{sortBy === 'new' ? 'sort-tab--on' : ''}}"
+      bindtap="onSortChange" data-sort="new">
+      <text>🕐 最新</text>
+    </view>
+    <view class="sort-tab {{sortBy === 'hot' ? 'sort-tab--on' : ''}}"
+      bindtap="onSortChange" data-sort="hot">
+      <text>🔥 最热</text>
+    </view>
+    <view class="sort-tab {{sortBy === 'my' ? 'sort-tab--on' : ''}}"
+      bindtap="onSortChange" data-sort="my">
+      <text>📋 我发布的</text>
+    </view>
+  </view>
+
+  <!-- ===== 商品双列网格 ===== -->
+  <view class="goods-grid">
+    <view class="goods-card" wx:for="{{goodsList}}" wx:key="_id"
+      bindtap="onGoodsTap" data-id="{{item._id}}">
+      <!-- 图片 -->
+      <view class="goods-card__img-wrap">
+        <image class="goods-card__img" src="{{item.imageUrl}}" mode="aspectFill" lazy-load />
+        <view class="my-goods-tag" wx:if="{{item.isMyGoods}}">
+          <text>我发布的</text>
+        </view>
+        <view class="goods-card__price-tag">
+          <text class="goods-card__price">{{item.priceText}}</text>
+          <text class="goods-card__unit" wx:if="{{item.priceUnitText}}">{{item.priceUnitText}}</text>
+        </view>
+      </view>
+      <!-- 信息 -->
+      <view class="goods-card__body">
+        <text class="goods-card__title">{{item.title}}</text>
+        <view class="goods-card__footer">
+          <text class="goods-card__cond">{{item.condition || '八成新'}}</text>
+          <text class="goods-card__time">{{item.publishTimeText || '刚刚'}}</text>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- ===== 加载更多 ===== -->
+  <view class="load-more" wx:if="{{loading}}">
+    <text>正在加载...</text>
+  </view>
+  <view class="load-more" wx:if="{{!hasMore && goodsList.length > 0}}">
+    <text class="load-end">— 已经到底了 —</text>
+  </view>
+
+  <!-- ===== 空状态 ===== -->
+  <view class="empty" wx:if="{{!loading && goodsList.length === 0}}">
+    <text class="empty__icon">📭</text>
+    <text class="empty__text">该分类下暂无商品</text>
+    <text class="empty__sub">快去发布第一个吧！</text>
+  </view>
+
+  <!-- ===== 底部留白 ===== -->
+  <view class="safe-bottom"></view>
+</view>
+
+<!-- ===== 悬浮发布按钮 ===== -->
+<view class="fab" bindtap="onPublishTap">
+  <text class="fab__icon">+</text>
+</view>
+
+<!-- ===== 热门横滑（首页显示）===== -->
+<view class="hot-strip" wx:if="{{hotGoods.length > 0}}">
+  <view class="hot-strip__head">
+    <text class="hot-strip__title">🔥 热门推荐</text>
+    <text class="hot-strip__more" bindtap="onViewAllHot">查看全部 ›</text>
+  </view>
+  <scroll-view class="hot-strip__scroll" scroll-x enhanced show-scrollbar="{{false}}">
+    <view class="hot-strip__list">
+      <view class="hot-card" wx:for="{{hotGoods}}" wx:key="goodsId"
+        bindtap="onHotGoodsTap" data-id="{{item.goodsId}}">
+        <image class="hot-card__img" src="{{item.imageUrl || '/images/default-goods.png'}}" mode="aspectFill" />
+        <text class="hot-card__name">{{item.title}}</text>
+      </view>
+    </view>
+  </scroll-view>
+</view>

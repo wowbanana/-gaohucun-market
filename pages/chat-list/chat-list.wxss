@@ -1,0 +1,65 @@
+/* pages/chat-list/chat-list.wxss - 消息列表 · 湖畔晨光 */
+
+.chat-list-page { min-height: 100vh; background: var(--color-bg-page); padding: 12rpx 0; }
+
+.empty-state { display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 200rpx 40rpx; }
+.empty-icon { font-size: 80rpx; margin-bottom: 22rpx; }
+.empty-text { font-size: 32rpx; color: var(--color-text-secondary); margin-bottom: 10rpx; }
+.empty-hint { font-size: 26rpx; color: var(--color-text-tertiary); text-align: center; }
+
+.msg-item {
+  display: flex; align-items: center; padding: 22rpx 32rpx;
+  background: var(--color-bg-card); margin-bottom: 1rpx;
+}
+
+.msg-avatar { width: 96rpx; height: 96rpx; border-radius: 50%; margin-right: 22rpx; flex-shrink: 0; background: var(--color-bg-tag); }
+.msg-info { flex: 1; overflow: hidden; }
+
+.msg-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 6rpx; }
+.msg-name-row { display: flex; align-items: center; flex: 1; overflow: hidden; }
+.msg-name {
+  font-size: 32rpx; color: var(--color-text-primary); font-weight: 500;
+  overflow: hidden; white-space: nowrap; text-overflow: ellipsis; flex-shrink: 1;
+}
+.msg-time { font-size: 24rpx; color: var(--color-text-tertiary); flex-shrink: 0; margin-left: 12rpx; }
+
+/* 消息类型标签 */
+.msg-tag {
+  flex-shrink: 0;
+  margin-left: 10rpx;
+  padding: 2rpx 12rpx;
+  border-radius: 8rpx;
+  font-size: 20rpx;
+  font-weight: 500;
+}
+.msg-tag--trade {
+  background: rgba(61, 122, 124, 0.12);
+  color: #3D7A7C;
+}
+.msg-tag--reply {
+  background: rgba(232, 168, 64, 0.12);
+  color: #C48630;
+}
+
+.msg-preview-row { display: flex; align-items: center; justify-content: space-between; }
+.msg-preview {
+  font-size: 28rpx; color: var(--color-text-tertiary);
+  overflow: hidden; white-space: nowrap; text-overflow: ellipsis;
+  flex: 1; margin-right: 14rpx;
+}
+
+.msg-badge {
+  min-width: 36rpx; height: 36rpx; line-height: 36rpx; text-align: center;
+  background: var(--color-danger); color: #FFFFFF; font-size: 22rpx;
+  border-radius: 18rpx; padding: 0 10rpx; flex-shrink: 0;
+}
+
+.msg-goods {
+  display: flex; align-items: center; margin-top: 10rpx; padding: 10rpx 14rpx;
+  background: var(--color-bg-tag); border-radius: var(--radius-md);
+}
+
+.msg-goods-thumb { width: 48rpx; height: 48rpx; border-radius: 8rpx; margin-right: 10rpx; flex-shrink: 0; }
+.msg-goods-title { font-size: 24rpx; color: var(--color-text-secondary); overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
+
+.loading-state { text-align: center; padding: 40rpx; color: var(--color-text-tertiary); font-size: 28rpx; }

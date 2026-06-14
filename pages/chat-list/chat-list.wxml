@@ -1,0 +1,54 @@
+<!--pages/chat-list/chat-list.wxml - 消息列表页（交易消息 + 回复通知）-->
+<view class="chat-list-page">
+  <!-- 空状态 -->
+  <view class="empty-state" wx:if="{{!loading && messageList.length === 0}}">
+    <text class="empty-icon">💬</text>
+    <text class="empty-text">暂无消息</text>
+    <text class="empty-hint">在商品详情点击"在线联系"即可与卖家对话</text>
+  </view>
+
+  <!-- 消息列表 -->
+  <view class="msg-item" wx:for="{{messageList}}" wx:key="{{item.msgType === 'trade' ? item.chatId : item.notifId}}"
+    bindtap="onItemTap" data-item="{{item}}">
+
+    <!-- 头像 -->
+    <image class="msg-avatar" src="{{item.otherUser.avatarUrl || '/images/default-avatar.png'}}" mode="aspectFill"></image>
+
+    <!-- 信息区 -->
+    <view class="msg-info">
+      <view class="msg-header">
+        <view class="msg-name-row">
+          <text class="msg-name">{{item.otherUser.nickName}}</text>
+          <!-- 消息类型标签 -->
+          <view class="msg-tag {{item.msgType === 'trade' ? 'msg-tag--trade' : 'msg-tag--reply'}}">
+            <text>{{item.msgType === 'trade' ? '交易' : '回复'}}</text>
+          </view>
+        </view>
+        <text class="msg-time">{{item.lastTimeText}}</text>
+      </view>
+
+      <view class="msg-preview-row">
+        <!-- 回复通知：显示帖子标题 + 评论内容 -->
+        <text class="msg-preview" wx:if="{{item.msgType === 'comment'}}">
+          在「{{item.postTitle}}」中回复了你
+        </text>
+        <text class="msg-preview" wx:else>{{item.lastMessage}}</text>
+
+        <view class="msg-badge" wx:if="{{item.unreadCount > 0}}">
+          <text>{{item.unreadCount > 99 ? '99+' : item.unreadCount}}</text>
+        </view>
+      </view>
+
+      <!-- 商品信息（仅交易消息显示） -->
+      <view class="msg-goods" wx:if="{{item.msgType === 'trade' && item.goodsInfo}}">
+        <image class="msg-goods-thumb" src="{{item.goodsInfo.imageUrl}}" mode="aspectFill"></image>
+        <text class="msg-goods-title">{{item.goodsInfo.title}}</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 加载状态 -->
+  <view class="loading-state" wx:if="{{loading}}">
+    <text>加载中...</text>
+  </view>
+</view>

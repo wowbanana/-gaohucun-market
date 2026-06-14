@@ -1,0 +1,61 @@
+<!-- pages/my-goods/my-goods.wxml - 我的发布页 -->
+<view class="my-goods-page">
+  <!-- Tab栏 -->
+  <view class="tab-bar">
+    <view
+      class="tab-item {{currentTab === item.key ? 'active' : ''}}"
+      wx:for="{{tabList}}"
+      wx:key="key"
+      data-key="{{item.key}}"
+      bindtap="onTabChange"
+    >
+      {{item.name}}
+    </view>
+  </view>
+
+  <!-- 商品列表 -->
+  <view class="goods-list" wx:if="{{goodsList.length > 0}}">
+    <view class="goods-card" wx:for="{{goodsList}}" wx:key="_id">
+      <image
+        class="goods-image"
+        src="{{item.images[0]}}"
+        mode="aspectFill"
+        data-id="{{item._id}}"
+        bindtap="onGoodsTap"
+      />
+      <view class="goods-info">
+        <text class="goods-title">{{item.title}}</text>
+        <view class="goods-price-row">
+          <text class="goods-price">¥{{item.price}}</text>
+          <text class="goods-unit" wx:if="{{item.priceUnit}}">/{{item.priceUnit}}</text>
+        </view>
+        <text class="goods-time">{{item.createTimeFormatted || ''}}</text>
+      </view>
+      <!-- 操作按钮 -->
+      <view class="goods-actions">
+        <view class="action-btn primary" wx:if="{{currentTab === 'selling'}}" data-id="{{item._id}}" catchtap="onTakeOff">下架</view>
+        <view class="action-btn success" wx:if="{{currentTab === 'selling'}}" data-id="{{item._id}}" catchtap="onMarkSold">已售</view>
+        <view class="action-btn primary" wx:if="{{currentTab === 'off'}}" data-id="{{item._id}}" catchtap="onPutOn">上架</view>
+        <view class="action-btn danger" wx:if="{{currentTab === 'off'}}" data-id="{{item._id}}" catchtap="onDeleteGoods">删除</view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 空状态 -->
+  <view class="empty-state" wx:if="{{!loading && goodsList.length === 0}}">
+    <text class="empty-icon">📋</text>
+    <text class="empty-text">{{currentTab === 'selling' ? '暂无在售商品' : currentTab === 'sold' ? '暂无已售商品' : '暂无下架商品'}}</text>
+    <view class="empty-action" wx:if="{{currentTab === 'selling'}}" bindtap="() => wx.switchTab({url: '/pages/publish/publish'})">
+      去发布商品
+    </view>
+  </view>
+
+  <!-- 加载状态 -->
+  <view class="loading-status" wx:if="{{loading}}">
+    <view class="loading-spinner"></view>
+    <text>加载中...</text>
+  </view>
+  <view class="no-more" wx:elif="{{!hasMore && goodsList.length > 0}}">
+    <text>— 没有更多了 —</text>
+  </view>
+</view>

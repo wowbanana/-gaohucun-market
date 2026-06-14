@@ -1,0 +1,77 @@
+/* pages/hot-rank/hot-rank.wxss - 热搜榜 · 湖畔晨光 */
+
+.hot-rank-page {
+  min-height: 100vh;
+  background: var(--color-bg-page);
+}
+
+.tab-bar {
+  display: flex; background: var(--color-bg-card);
+  border-bottom: 1rpx solid var(--color-border-light);
+}
+
+.tab-item {
+  flex: 1; text-align: center; padding: 22rpx 0;
+  font-size: 28rpx; color: var(--color-text-secondary); position: relative;
+}
+
+.tab-item.active { color: var(--color-primary); font-weight: 600; }
+
+.tab-item.active::after {
+  content: ''; position: absolute; bottom: 0; left: 50%; transform: translateX(-50%);
+  width: 40rpx; height: 5rpx; background: var(--color-primary); border-radius: var(--radius-full);
+}
+
+.loading-container { display: flex; justify-content: center; padding-top: 200rpx; }
+.loading-spinner { width: 60rpx; height: 60rpx; border: 4rpx solid var(--color-border-light); border-top-color: var(--color-primary); border-radius: 50%; animation: spin 0.8s linear infinite; }
+@keyframes spin { to { transform: rotate(360deg); } }
+
+.rank-item {
+  display: flex; align-items: center; background: var(--color-bg-card);
+  padding: 20rpx 24rpx; border-bottom: 1rpx solid var(--color-border-light);
+}
+
+.rank-number {
+  width: 48rpx; height: 48rpx; display: flex; align-items: center; justify-content: center;
+  font-size: 26rpx; font-weight: 700; color: var(--color-text-tertiary); margin-right: 16rpx; flex-shrink: 0;
+}
+
+.rank-number.top-1 { color: #E07040; font-size: 30rpx; }
+.rank-number.top-2 { color: #D9A040; font-size: 30rpx; }
+.rank-number.top-3 { color: #C0A040; font-size: 30rpx; }
+
+.rank-image {
+  width: 120rpx; height: 120rpx; border-radius: var(--radius-md);
+  margin-right: 16rpx; flex-shrink: 0; background: var(--color-bg-tag);
+}
+
+.rank-info { flex: 1; }
+
+.rank-title {
+  font-size: 28rpx; color: var(--color-text-primary); font-weight: 500;
+  display: -webkit-box; -webkit-line-clamp: 1; -webkit-box-orient: vertical; overflow: hidden;
+}
+
+.rank-meta { display: flex; align-items: center; justify-content: space-between; margin-top: 8rpx; }
+
+.rank-price { font-size: 28rpx; font-weight: 700; color: var(--color-price); }
+.rank-views { font-size: 22rpx; color: var(--color-text-tertiary); }
+
+.keyword-item {
+  display: flex; align-items: center; background: var(--color-bg-card);
+  padding: 24rpx; border-bottom: 1rpx solid var(--color-border-light);
+}
+
+.keyword-rank {
+  width: 48rpx; height: 48rpx; display: flex; align-items: center; justify-content: center;
+  font-size: 26rpx; font-weight: 700; color: var(--color-text-tertiary); margin-right: 20rpx; flex-shrink: 0;
+}
+
+.keyword-rank.top { color: #E07040; }
+.keyword-text { flex: 1; font-size: 28rpx; color: var(--color-text-primary); }
+.keyword-count { font-size: 22rpx; color: var(--color-text-tertiary); margin-right: 10rpx; }
+.keyword-hot { font-size: 28rpx; }
+
+.empty-state { display: flex; flex-direction: column; align-items: center; padding: 100rpx 0; }
+.empty-icon { font-size: 80rpx; margin-bottom: 16rpx; }
+.empty-text { font-size: 28rpx; color: var(--color-text-tertiary); }

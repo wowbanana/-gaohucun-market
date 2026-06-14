@@ -1,0 +1,53 @@
+/* pages/my-favorites/my-favorites.wxss - 我的收藏 · 湖畔晨光 */
+
+.my-favorites-page {
+  min-height: 100vh;
+  background: var(--color-bg-page);
+  padding: 16rpx;
+}
+
+.favorites-list {
+  display: flex; flex-direction: column; gap: 14rpx;
+}
+
+.favorite-card {
+  display: flex; background: var(--color-bg-card); border-radius: var(--radius-xl);
+  padding: 20rpx; align-items: center; box-shadow: var(--shadow-xs);
+}
+
+.goods-image {
+  width: 160rpx; height: 160rpx; border-radius: var(--radius-md); flex-shrink: 0;
+  background: var(--color-bg-tag);
+}
+
+.goods-info { flex: 1; margin-left: 20rpx; }
+
+.goods-title {
+  font-size: 28rpx; color: var(--color-text-primary); font-weight: 500;
+  display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
+}
+
+.goods-price-row { display: flex; align-items: baseline; margin-top: 8rpx; }
+
+.goods-price { font-size: 30rpx; font-weight: 700; color: var(--color-price); }
+.goods-unit { font-size: 22rpx; color: var(--color-text-tertiary); }
+
+.goods-condition {
+  font-size: 22rpx; color: var(--color-primary); background: var(--color-primary-light);
+  padding: 2rpx 12rpx; border-radius: var(--radius-full); display: inline-block; margin-top: 8rpx;
+}
+
+.unfavorite-btn {
+  padding: 10rpx 20rpx; font-size: 22rpx; color: var(--color-danger);
+  background: var(--color-danger-bg); border-radius: var(--radius-full); white-space: nowrap; flex-shrink: 0;
+}
+
+.empty-state { display: flex; flex-direction: column; align-items: center; padding: 120rpx 0; }
+.empty-icon { font-size: 80rpx; margin-bottom: 16rpx; }
+.empty-text { font-size: 28rpx; color: var(--color-text-secondary); margin-bottom: 8rpx; }
+.empty-hint { font-size: 24rpx; color: var(--color-text-tertiary); }
+
+.loading-status { display: flex; align-items: center; justify-content: center; gap: 10rpx; padding: 30rpx 0; font-size: 26rpx; color: var(--color-text-tertiary); }
+.loading-spinner { width: 32rpx; height: 32rpx; border: 3rpx solid var(--color-border-light); border-top-color: var(--color-primary); border-radius: 50%; animation: spin 0.8s linear infinite; }
+@keyframes spin { to { transform: rotate(360deg); } }
+.no-more { text-align: center; padding: 30rpx 0; font-size: 24rpx; color: var(--color-text-tertiary); }

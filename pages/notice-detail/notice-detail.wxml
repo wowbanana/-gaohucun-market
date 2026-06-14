@@ -1,0 +1,42 @@
+<!-- pages/notice-detail/notice-detail.wxml - 公告详情页 -->
+<view class="notice-detail-page">
+  <!-- 加载状态 -->
+  <view class="loading-container" wx:if="{{loading}}">
+    <view class="loading-spinner"></view>
+  </view>
+
+  <block wx:if="{{!loading && notice}}">
+    <view class="notice-card">
+      <!-- 标签 -->
+      <view class="notice-tag {{notice.type === 'important' ? 'important' : ''}}">
+        {{notice.type === 'important' ? '重要' : '通知'}}
+      </view>
+
+      <!-- 标题 -->
+      <view class="notice-title">{{notice.title}}</view>
+
+      <!-- 元信息 -->
+      <view class="notice-meta">
+        <text class="meta-author">{{notice.author || '高湖村委'}}</text>
+        <text class="meta-time">{{notice.createTimeFormatted || ''}}</text>
+      </view>
+
+      <!-- 内容 -->
+      <view class="notice-content">{{notice.content}}</view>
+
+      <!-- 图片 -->
+      <view class="notice-images" wx:if="{{notice.images && notice.images.length > 0}}">
+        <image
+          wx:for="{{notice.images}}"
+          wx:key="index"
+          class="notice-image"
+          src="{{item}}"
+          mode="widthFix"
+          data-url="{{item}}"
+          data-urls="{{notice.images}}"
+          bindtap="onPreviewImage"
+        />
+      </view>
+    </view>
+  </block>
+</view>

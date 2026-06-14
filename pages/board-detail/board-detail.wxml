@@ -1,0 +1,124 @@
+<!-- pages/board-detail/board-detail.wxml - 留言详情页 -->
+<view class="board-detail-page">
+  <!-- 加载状态 -->
+  <view class="loading-container" wx:if="{{loading}}">
+    <view class="loading-spinner"></view>
+    <text class="loading-text">加载中...</text>
+  </view>
+
+  <block wx:if="{{!loading && post}}">
+    <!-- 留言主体 -->
+    <view class="post-detail-card">
+      <!-- 作者信息 -->
+      <view class="post-author">
+        <image class="author-avatar" src="{{post.authorAvatar || '/images/default-avatar.png'}}" mode="aspectFill" />
+        <view class="author-info">
+          <text class="author-name">{{post.authorName}}</text>
+          <text class="post-time">{{post.createTimeFormatted}}</text>
+        </view>
+        <view class="post-group-tag" wx:if="{{post.group}}">
+          {{post.group}}
+        </view>
+      </view>
+
+      <!-- 留言标题 -->
+      <view class="post-title">{{post.title}}</view>
+      <!-- 留言内容 -->
+      <view class="post-content">{{post.content}}</view>
+
+      <!-- 留言图片 -->
+      <view class="post-images" wx:if="{{post.images && post.images.length > 0}}">
+        <view class="image-grid {{post.images.length === 1 ? 'single-image' : ''}}">
+          <image
+            wx:for="{{post.images}}"
+            wx:key="index"
+            class="post-image"
+            src="{{item}}"
+            mode="aspectFill"
+            data-url="{{item}}"
+            data-urls="{{post.images}}"
+            bindtap="onPreviewImage"
+          />
+        </view>
+      </view>
+
+      <!-- 操作栏 -->
+      <view class="post-actions">
+        <view class="action-item {{liked ? 'active' : ''}}" bindtap="onLike">
+          <text class="action-icon">{{liked ? '❤️' : '🤍'}}</text>
+          <text class="action-count">{{likeCount}}</text>
+        </view>
+        <view class="action-item" bindtap="onShowCommentInput">
+          <text class="action-icon">💬</text>
+          <text class="action-count">{{comments.length}}</text>
+        </view>
+      </view>
+    </view>
+
+    <!-- 评论列表 -->
+    <view class="comments-section">
+      <view class="section-header">
+        <text class="section-title">评论 ({{comments.length}})</text>
+      </view>
+
+      <view class="comments-list" wx:if="{{comments.length > 0}}">
+        <!-- 一级评论 -->
+        <view class="comment-item" wx:for="{{comments}}" wx:key="_id">
+          <image class="comment-avatar" src="{{item.authorAvatar || '/images/default-avatar.png'}}" mode="aspectFill" />
+          <view class="comment-body">
+            <view class="comment-header">
+              <text class="comment-name">{{item.authorName}}</text>
+              <text class="comment-time">{{item.createTimeFormatted}}</text>
+            </view>
+            <view class="comment-content">{{item.content}}</view>
+            <view class="comment-actions">
+              <view
+                class="comment-reply-btn"
+                data-reply="{{item}}"
+                bindtap="onShowCommentInput"
+              >
+                回复
+              </view>
+            </view>
+
+            <!-- 二级回复（缩进显示） -->
+            <view class="reply-list" wx:if="{{item.replies && item.replies.length > 0}}">
+              <view class="reply-item" wx:for="{{item.replies}}" wx:for-item="reply" wx:key="_id">
+                <text class="reply-name">{{reply.authorName}}</text>
+                <text class="reply-colon" wx:if="{{reply.replyToName}}"> 回复 </text>
+                <text class="reply-target" wx:if="{{reply.replyToName}}">@{{reply.replyToName}}</text>
+                <text class="reply-content">：{{reply.content}}</text>
+                <text class="reply-time">{{reply.createTimeFormatted}}</text>
+              </view>
+            </view>
+          </view>
+        </view>
+      </view>
+
+      <view class="empty-comments" wx:else>
+        <text class="empty-icon">💬</text>
+        <text class="empty-text">暂无评论，快来发表第一条评论吧</text>
+      </view>
+    </view>
+  </block>
+
+  <!-- 底部评论输入栏 -->
+  <view class="comment-bar" wx:if="{{!loading && post}}">
+    <view class="comment-input-wrap">
+      <input
+        class="comment-input"
+        placeholder="{{replyTo ? '回复 @' + replyTo.authorName : '写评论...'}}"
+        value="{{commentContent}}"
+        bindinput="onCommentInput"
+        confirm-type="send"
+        bindconfirm="onSubmitComment"
+      />
+    </view>
+    <view
+      class="comment-send-btn {{canSubmitComment ? 'active' : ''}}"
+      bindtap="onSubmitComment"
+    >
+      发送
+    </view>
+  </view>
+</view>

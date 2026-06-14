@@ -1,0 +1,144 @@
+<!-- pages/goods-detail/goods-detail.wxml - 商品详情页 -->
+<view class="page">
+
+  <!-- ===== 加载状态 ===== -->
+  <view class="loading-box" wx:if="{{loading}}">
+    <view class="loading-spinner"></view>
+    <text class="loading-text">加载中...</text>
+  </view>
+
+  <block wx:if="{{!loading && goods}}">
+    <!-- ===== 图片轮播 ===== -->
+    <view class="swiper-box">
+      <swiper class="swiper" circular autoplay="{{false}}"
+        indicator-dots="{{goods.imageUrls.length > 1}}"
+        indicator-color="rgba(255,255,255,0.4)"
+        indicator-active-color="#fff"
+        bindchange="onImageChange">
+        <swiper-item wx:for="{{goods.imageUrls}}" wx:key="*this">
+          <image class="swiper-img" src="{{item}}" mode="aspectFill"
+            bindtap="onImagePreview" data-index="{{index}}" />
+        </swiper-item>
+      </swiper>
+      <!-- 页码 -->
+      <view class="img-counter" wx:if="{{goods.imageUrls.length > 1}}">
+        <text>{{currentImageIndex + 1}} / {{goods.imageUrls.length}}</text>
+      </view>
+      <!-- 状态标签 -->
+      <view class="status-tag status-{{goods.status}}" wx:if="{{isOwner}}">
+        <text>{{goods.status === 'selling' ? '在售' : goods.status === 'sold' ? '已售' : '已下架'}}</text>
+      </view>
+      <!-- 返回按钮 -->
+      <view class="back-btn" bindtap="onBackTap">
+        <text>‹</text>
+      </view>
+    </view>
+
+    <!-- ===== 价格卡片 ===== -->
+    <view class="price-card">
+      <view class="price-left">
+        <text class="price-symbol">¥</text>
+        <text class="price-num">{{goods.price}}</text>
+        <text class="price-unit" wx:if="{{goods.priceUnitText}}">{{goods.priceUnitText}}</text>
+      </view>
+      <view class="price-right">
+        <text class="condition-chip">{{goods.conditionText}}</text>
+      </view>
+    </view>
+
+    <!-- ===== 标题 ===== -->
+    <view class="title-box">
+      <text class="goods-title">{{goods.title}}</text>
+      <view class="title-meta">
+        <text class="meta-time">{{goods.publishTimeText}}</text>
+        <text class="meta-views">👁 {{viewCount}}</text>
+      </view>
+    </view>
+
+    <!-- ===== 商品信息卡片 ===== -->
+    <view class="info-card">
+      <view class="info-row">
+        <view class="info-cell">
+          <text class="info-label">📂 分类</text>
+          <text class="info-val">{{goods.categoryName || '未分类'}}</text>
+        </view>
+        <view class="info-cell">
+          <text class="info-label">✨ 成色</text>
+          <text class="info-val">{{goods.conditionText}}</text>
+        </view>
+      </view>
+      <view class="info-row" wx:if="{{goods.contactInfo}}">
+        <view class="info-cell info-cell--full">
+          <text class="info-label">📞 联系电话</text>
+          <text class="info-val info-val--phone" bindtap="onCallPhone">{{goods.contactInfo}}</text>
+        </view>
+      </view>
+    </view>
+
+    <!-- ===== 卖家信息（非自己商品） ===== -->
+    <view class="seller-card" wx:if="{{!isOwner}}">
+      <text class="card-section-title">卖家</text>
+      <view class="seller-row">
+        <image class="seller-avatar" src="{{seller.avatarUrl}}" mode="aspectFill" />
+        <view class="seller-info">
+          <text class="seller-name">{{seller.nickName}}</text>
+          <text class="seller-phone-sub" wx:if="{{goods.sellerPhone}}">📞 {{goods.sellerPhone}}</text>
+        </view>
+      </view>
+    </view>
+
+    <!-- ===== 商品描述 ===== -->
+    <view class="desc-card">
+      <text class="card-section-title">商品描述</text>
+      <text class="desc-text">{{goods.description || '卖家很懒，没有写描述～'}}</text>
+    </view>
+
+    <!-- ===== 底部留白 ===== -->
+    <view class="bottom-gap"></view>
+  </block>
+
+  <!-- ===== 错误状态 ===== -->
+  <view class="error-box" wx:if="{{!loading && !goods}}">
+    <text class="error-icon">😕</text>
+    <text class="error-text">商品不存在或已下架</text>
+    <view class="error-btn" bindtap="onBackHome">返回首页</view>
+  </view>
+</view>
+
+<!-- ===== 底部操作栏（自己商品）===== -->
+<view class="bottom-bar" wx:if="{{!loading && goods && isOwner}}">
+  <view class="bottom-bar__inner owner-bar">
+    <view class="owner-action owner-action--edit" bindtap="onEditTap">
+      <text>✏️ 编辑</text>
+    </view>
+    <block wx:if="{{goods.status === 'selling'}}">
+      <view class="owner-action owner-action--off" bindtap="onTakeOff">
+        <text>📦 下架</text>
+      </view>
+      <view class="owner-action owner-action--sold" bindtap="onMarkSold">
+        <text>✅ 已售</text>
+      </view>
+    </block>
+    <block wx:elif="{{goods.status === 'off'}}">
+      <view class="owner-action owner-action--on" bindtap="onPutOn">
+        <text>📌 上架</text>
+      </view>
+    </block>
+    <view class="owner-action owner-action--delete" bindtap="onDeleteGoods">
+      <text>🗑</text>
+    </view>
+  </view>
+</view>
+
+<!-- ===== 底部操作栏（他人商品）===== -->
+<view class="bottom-bar" wx:if="{{!loading && goods && !isOwner}}">
+  <view class="bottom-bar__inner buyer-bar">
+    <view class="fav-btn {{isFavorited ? 'fav-btn--active' : ''}}" bindtap="onFavoriteTap">
+      <text>{{isFavorited ? '❤️' : '🤍'}}</text>
+      <text class="fav-label">{{isFavorited ? '已收藏' : '收藏'}}</text>
+    </view>
+    <view class="chat-btn" bindtap="onChatSeller">
+      <text>💬 在线联系</text>
+    </view>
+  </view>
+</view>

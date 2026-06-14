@@ -1,0 +1,61 @@
+<!-- pages/publish-board/publish-board.wxml - 发布留言页 -->
+<view class="page">
+  <scroll-view class="form-scroll" scroll-y enhanced show-scrollbar="{{false}}">
+
+    <!-- ===== 标题（选填） ===== -->
+    <view class="card">
+      <view class="card__header">
+        <text class="card__title">📝 留言标题</text>
+        <text class="card__hint">选填</text>
+      </view>
+      <textarea class="input-title" placeholder="给你的留言起个标题吧（选填）"
+        placeholder-class="ph" value="{{title}}"
+        bindinput="onTitleInput" maxlength="30" auto-height />
+      <view class="char-hint">{{title.length}}/30</view>
+    </view>
+
+    <!-- ===== 内容 ===== -->
+    <view class="card">
+      <view class="card__header">
+        <text class="card__title">💬 留言内容</text>
+        <text class="card__badge">必填</text>
+      </view>
+      <textarea class="textarea-lg" placeholder="分享村里的大小事、寻物启事、便民信息..."
+        placeholder-class="ph" value="{{content}}"
+        bindinput="onContentInput" maxlength="500" auto-height />
+      <view class="char-hint">{{content.length}}/500</view>
+    </view>
+
+    <!-- ===== 图片（选填） ===== -->
+    <view class="card">
+      <view class="card__header">
+        <text class="card__title">🖼️ 添加图片</text>
+        <text class="card__hint">{{images.length}}/{{maxImages}}</text>
+      </view>
+      <view class="image-grid">
+        <view class="image-cell" wx:for="{{images}}" wx:key="index">
+          <image class="image-cell__img" src="{{item}}" mode="aspectFill"
+            data-url="{{item}}" bindtap="onPreviewImage" />
+          <view class="image-cell__del" data-index="{{index}}" catchtap="onDeleteImage">
+            <text>✕</text>
+          </view>
+        </view>
+        <view class="image-cell image-cell--add" bindtap="onChooseImage"
+          wx:if="{{images.length < maxImages}}">
+          <text class="image-cell__plus">+</text>
+          <text class="image-cell__label">添加</text>
+        </view>
+      </view>
+    </view>
+
+    <!-- ===== 操作按钮 ===== -->
+    <view class="actions">
+      <button class="btn-publish" bindtap="onSubmit"
+        disabled="{{submitting}}">
+        {{submitting ? '发布中...' : '📣 发布留言'}}
+      </button>
+    </view>
+
+    <view class="bottom-safe"></view>
+  </scroll-view>
+</view>

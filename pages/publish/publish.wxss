@@ -1,0 +1,309 @@
+/* pages/publish/publish.wxss - 发布商品 · 湖畔晨光 */
+
+.page { min-height: 100vh; background: var(--color-bg-page); }
+
+.form-scroll { height: 100%; }
+
+/* ===== 卡片容器 ===== */
+.card {
+  background: var(--color-bg-card);
+  border-radius: 20rpx;
+  padding: 28rpx;
+  margin: 0 24rpx 16rpx;
+  box-shadow: var(--shadow-xs);
+}
+
+.card__header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20rpx;
+}
+
+.card__title {
+  font-size: 30rpx;
+  font-weight: 600;
+  color: var(--color-text-primary);
+}
+
+.card__badge {
+  margin-left: 10rpx;
+  font-size: 22rpx;
+  color: #fff;
+  background: var(--color-primary);
+  padding: 2rpx 14rpx;
+  border-radius: 99rpx;
+  font-weight: 500;
+}
+
+.card__hint {
+  flex: 1;
+  text-align: right;
+  font-size: 24rpx;
+  color: var(--color-text-tertiary);
+}
+
+.char-hint {
+  text-align: right;
+  font-size: 22rpx;
+  color: var(--color-text-tertiary);
+  margin-top: 10rpx;
+}
+
+/* ===== 输入框 & 文本域 ===== */
+.input-lg {
+  width: 100%;
+  height: 88rpx;
+  padding: 0 24rpx;
+  font-size: 32rpx;
+  color: var(--color-text-primary);
+  background: var(--color-bg-input);
+  border: 2rpx solid var(--color-border-light);
+  border-radius: 16rpx;
+  box-sizing: border-box;
+}
+
+.textarea-lg {
+  width: 100%;
+  min-height: 160rpx;
+  padding: 20rpx 24rpx;
+  font-size: 30rpx;
+  color: var(--color-text-primary);
+  background: var(--color-bg-input);
+  border: 2rpx solid var(--color-border-light);
+  border-radius: 16rpx;
+  box-sizing: border-box;
+  line-height: 1.6;
+}
+
+.ph { color: var(--color-text-tertiary); font-size: 28rpx; }
+
+/* ===== 图片网格 ===== */
+.image-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14rpx;
+}
+
+.image-cell {
+  position: relative;
+  aspect-ratio: 1;
+  border-radius: 16rpx;
+  overflow: hidden;
+  background: var(--color-bg-tag);
+}
+
+.image-cell--cover {
+  box-shadow: 0 0 0 3rpx var(--color-primary);
+}
+
+.image-cell__img {
+  width: 100%;
+  height: 100%;
+}
+
+.image-cell__cover {
+  position: absolute;
+  left: 0;
+  top: 0;
+  background: var(--color-primary);
+  color: #fff;
+  font-size: 20rpx;
+  padding: 2rpx 14rpx;
+  border-radius: 0 0 12rpx 0;
+  font-weight: 500;
+}
+
+.image-cell__del {
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 40rpx;
+  height: 40rpx;
+  background: rgba(0,0,0,0.45);
+  color: #fff;
+  font-size: 22rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 0 0 0 14rpx;
+}
+
+.image-cell--add {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border: 2rpx dashed var(--color-border);
+  background: var(--color-bg-input);
+}
+
+.image-cell__plus {
+  font-size: 52rpx;
+  color: var(--color-text-tertiary);
+  line-height: 1;
+}
+
+.image-cell__label {
+  font-size: 22rpx;
+  color: var(--color-text-tertiary);
+  margin-top: 4rpx;
+}
+
+/* ===== 分类标签 ===== */
+.chip-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14rpx;
+}
+
+.chip {
+  display: flex;
+  align-items: center;
+  gap: 6rpx;
+  padding: 14rpx 22rpx;
+  border-radius: 99rpx;
+  background: var(--color-bg-tag);
+  border: 2rpx solid transparent;
+  transition: all 0.2s;
+}
+
+.chip__icon { font-size: 28rpx; }
+
+.chip__text {
+  font-size: 26rpx;
+  color: var(--color-text-secondary);
+  font-weight: 500;
+}
+
+.chip--active {
+  background: var(--color-primary-light);
+  border-color: var(--color-primary);
+}
+
+.chip--active .chip__text {
+  color: var(--color-primary);
+  font-weight: 600;
+}
+
+/* ===== 价格 ===== */
+.price-row {
+  display: flex;
+  align-items: center;
+  gap: 16rpx;
+}
+
+.price-input-wrap {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  height: 88rpx;
+  padding: 0 24rpx;
+  background: var(--color-bg-input);
+  border: 2rpx solid var(--color-border-light);
+  border-radius: 16rpx;
+  box-sizing: border-box;
+}
+
+.price-symbol {
+  font-size: 36rpx;
+  font-weight: 700;
+  color: var(--color-price);
+  margin-right: 8rpx;
+}
+
+.price-input {
+  flex: 1;
+  font-size: 36rpx;
+  font-weight: 600;
+  color: var(--color-text-primary);
+  height: 100%;
+}
+
+.unit-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 88rpx;
+  padding: 0 28rpx;
+  font-size: 28rpx;
+  font-weight: 600;
+  color: var(--color-primary);
+  background: var(--color-primary-light);
+  border-radius: 16rpx;
+  white-space: nowrap;
+}
+
+/* ===== 选择器 ===== */
+.picker-display {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 88rpx;
+  padding: 0 24rpx;
+  font-size: 30rpx;
+  color: var(--color-text-primary);
+  background: var(--color-bg-input);
+  border: 2rpx solid var(--color-border-light);
+  border-radius: 16rpx;
+  box-sizing: border-box;
+}
+
+.picker-display--empty {
+  color: var(--color-text-tertiary);
+  font-size: 28rpx;
+}
+
+.picker-chevron {
+  font-size: 36rpx;
+  color: var(--color-text-tertiary);
+  font-weight: 300;
+}
+
+/* ===== 操作按钮 ===== */
+.actions {
+  padding: 16rpx 24rpx;
+  display: flex;
+  flex-direction: column;
+  gap: 14rpx;
+}
+
+.btn-publish {
+  width: 100%;
+  height: 100rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 34rpx;
+  font-weight: 700;
+  color: #fff;
+  background: var(--color-primary-gradient);
+  border: none;
+  border-radius: 50rpx;
+  box-shadow: 0 8rpx 24rpx rgba(61,122,124,0.30);
+  letter-spacing: 4rpx;
+}
+
+.btn-publish[disabled] {
+  background: var(--color-bg-tag);
+  color: var(--color-text-tertiary);
+  box-shadow: none;
+  letter-spacing: 0;
+}
+
+.btn-publish::after { border: none; }
+
+.btn-reset {
+  width: 100%;
+  height: 80rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 28rpx;
+  color: var(--color-text-tertiary);
+  background: transparent;
+  border: none;
+}
+
+.btn-reset::after { border: none; }
+
+.bottom-safe { height: 32rpx; }

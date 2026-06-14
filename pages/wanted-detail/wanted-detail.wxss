@@ -1,0 +1,122 @@
+/* pages/wanted-detail/wanted-detail.wxss - 求购详情 · 湖畔晨光 */
+
+.page-container {
+  padding-bottom: 180rpx;
+  background: var(--color-bg-page);
+}
+
+.loading-container {
+  display: flex; align-items: center; justify-content: center; height: 60vh;
+}
+
+.loading-text {
+  font-size: 30rpx; color: var(--color-text-tertiary);
+}
+
+.wanted-section {
+  background: var(--color-bg-card);
+  padding: 24rpx 32rpx;
+  margin-bottom: 12rpx;
+}
+
+.status-tag {
+  display: inline-flex;
+  padding: 6rpx 18rpx;
+  border-radius: var(--radius-full);
+  font-size: 24rpx;
+  font-weight: 500;
+  margin-bottom: 14rpx;
+}
+
+.status-tag--open { background: var(--color-success-bg); color: var(--color-success); }
+.status-tag--responded { background: var(--color-warning-bg); color: var(--color-warning); }
+.status-tag--closed { background: var(--color-bg-tag); color: var(--color-text-tertiary); }
+
+.wanted-title {
+  display: block;
+  font-size: 36rpx;
+  font-weight: 600;
+  color: var(--color-text-primary);
+  margin-bottom: 18rpx;
+  line-height: 1.5;
+}
+
+.budget-section {
+  display: flex; align-items: center; margin-bottom: 18rpx;
+}
+
+.budget-label {
+  font-size: 30rpx; color: var(--color-text-secondary); margin-right: 10rpx;
+}
+
+.budget-value {
+  font-size: 34rpx; color: var(--color-price); font-weight: 700;
+}
+
+.info-item {
+  display: flex; align-items: center; padding: 10rpx 0;
+}
+
+.info-label {
+  flex-shrink: 0; width: 160rpx; font-size: 30rpx; color: var(--color-text-tertiary);
+}
+
+.info-value {
+  flex: 1; font-size: 30rpx; color: var(--color-text-primary);
+}
+
+.description-section {
+  padding: 24rpx 32rpx;
+  background: var(--color-bg-card);
+  border-bottom: 12rpx solid var(--color-bg-page);
+}
+
+.section-header { margin-bottom: 14rpx; }
+
+.section-title {
+  font-size: 32rpx; font-weight: 600; color: var(--color-text-primary);
+}
+
+.description-content {
+  font-size: 30rpx; color: var(--color-text-primary); line-height: 1.8; word-break: break-all;
+}
+
+.buyer-section {
+  padding: 24rpx 32rpx;
+  background: var(--color-bg-card);
+  border-bottom: 12rpx solid var(--color-bg-page);
+}
+
+.buyer-info { display: flex; align-items: center; }
+
+.buyer-avatar {
+  width: 96rpx; height: 96rpx; border-radius: 50%; margin-right: 20rpx; background: var(--color-bg-tag);
+}
+
+.buyer-detail { display: flex; flex-direction: column; }
+
+.buyer-name {
+  font-size: 32rpx; font-weight: 500; color: var(--color-text-primary); margin-bottom: 6rpx;
+}
+
+.buyer-time { font-size: 26rpx; color: var(--color-text-tertiary); }
+
+.action-section {
+  position: fixed; left: 0; right: 0; bottom: 0;
+  padding: 16rpx 24rpx;
+  padding-bottom: calc(16rpx + env(safe-area-inset-bottom));
+  background: var(--color-bg-card);
+  box-shadow: 0 -2rpx 12rpx rgba(44,36,22,0.06);
+  z-index: 100;
+}
+
+.contact-buttons { display: flex; gap: 14rpx; margin-top: 14rpx; }
+
+.contact-btn { flex: 1; height: 92rpx; font-size: 30rpx; border-radius: var(--radius-lg); }
+
+.error-state {
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  height: 60vh; padding: 32rpx;
+}
+
+.error-text { font-size: 32rpx; color: var(--color-text-secondary); margin-bottom: 32rpx; }

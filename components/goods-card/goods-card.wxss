@@ -1,0 +1,82 @@
+/* components/goods-card/goods-card.wxss - 商品卡片组件 · 湖畔晨光 */
+
+/* 网格模式 */
+.goods-card.grid-mode {
+  background: var(--color-bg-card);
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+  box-shadow: var(--shadow-xs);
+  transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.goods-card.grid-mode:active {
+  transform: scale(0.98);
+  box-shadow: var(--shadow-sm);
+}
+
+.goods-card.grid-mode .card-image-wrap {
+  position: relative; width: 100%; aspect-ratio: 1; overflow: hidden;
+}
+
+.goods-card.grid-mode .card-image { width: 100%; height: 100%; }
+
+.goods-card.grid-mode .card-info { padding: 14rpx; }
+
+.goods-card.grid-mode .card-title {
+  font-size: 26rpx; color: var(--color-text-primary);
+  display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical;
+  overflow: hidden; line-height: 1.4; min-height: 72rpx;
+}
+
+.goods-card.grid-mode .card-price-row { display: flex; align-items: baseline; margin-top: 8rpx; }
+.goods-card.grid-mode .card-price { font-size: 30rpx; font-weight: 700; color: var(--color-price); }
+.goods-card.grid-mode .card-unit { font-size: 22rpx; color: var(--color-text-tertiary); margin-left: 2rpx; }
+
+.goods-card.grid-mode .card-meta { display: flex; align-items: center; justify-content: space-between; margin-top: 6rpx; }
+.goods-card.grid-mode .meta-left { display: flex; flex-direction: column; gap: 4rpx; }
+.goods-card.grid-mode .meta-location,
+.goods-card.grid-mode .meta-time { font-size: 22rpx; color: var(--color-text-tertiary); }
+
+/* 列表模式 */
+.goods-card.list-mode {
+  display: flex; background: var(--color-bg-card); border-radius: var(--radius-xl);
+  padding: 18rpx; gap: 18rpx; box-shadow: var(--shadow-xs);
+}
+
+.goods-card.list-mode .card-image-wrap {
+  position: relative; width: 200rpx; height: 200rpx; flex-shrink: 0;
+  border-radius: var(--radius-md); overflow: hidden;
+}
+
+.goods-card.list-mode .card-image { width: 100%; height: 100%; }
+.goods-card.list-mode .card-info { flex: 1; display: flex; flex-direction: column; justify-content: space-between; }
+
+.goods-card.list-mode .card-title {
+  font-size: 28rpx; color: var(--color-text-primary); font-weight: 500;
+  display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical;
+  overflow: hidden; line-height: 1.5;
+}
+
+.goods-card.list-mode .card-price-row { display: flex; align-items: baseline; margin-top: 6rpx; }
+.goods-card.list-mode .card-price { font-size: 32rpx; font-weight: 700; color: var(--color-price); }
+.goods-card.list-mode .card-unit { font-size: 22rpx; color: var(--color-text-tertiary); margin-left: 2rpx; }
+.goods-card.list-mode .card-meta { display: flex; align-items: center; justify-content: space-between; }
+.goods-card.list-mode .meta-location { font-size: 22rpx; color: var(--color-text-tertiary); }
+
+/* 成色标签 */
+.condition-tag {
+  position: absolute; top: 10rpx; left: 10rpx; padding: 4rpx 12rpx;
+  background: rgba(61, 122, 124, 0.88); color: #FFFFFF;
+  font-size: 20rpx; border-radius: var(--radius-sm);
+}
+
+/* 状态标签 */
+.status-badge {
+  position: absolute; top: 10rpx; right: 10rpx; padding: 4rpx 14rpx;
+  background: rgba(224, 112, 64, 0.9); color: #FFFFFF;
+  font-size: 20rpx; font-weight: 600; border-radius: var(--radius-sm);
+}
+
+.status-badge.off { background: rgba(160, 152, 136, 0.88); }
+
+.favorite-btn { font-size: 32rpx; padding: 6rpx; }

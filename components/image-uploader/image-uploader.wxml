@@ -1,0 +1,37 @@
+<!-- components/image-uploader/image-uploader.wxml - 图片上传组件 -->
+<view class="image-uploader">
+  <view class="image-grid">
+    <!-- 已选图片 -->
+    <view class="image-item" wx:for="{{images}}" wx:key="index">
+      <image
+        class="preview-image"
+        src="{{item}}"
+        mode="aspectFill"
+        data-url="{{item}}"
+        bindtap="onPreviewImage"
+        lazy-load
+      />
+      <view
+        class="image-delete"
+        data-index="{{index}}"
+        catchtap="onDeleteImage"
+        wx:if="{{editable}}"
+      >✕</view>
+      <!-- 上传进度（如果有） -->
+      <view class="upload-progress" wx:if="{{item.uploading}}">
+        <view class="progress-bar" style="width: {{item.progress || 0}}%"></view>
+      </view>
+    </view>
+
+    <!-- 添加按钮 -->
+    <view
+      class="image-add {{!editable || images.length >= maxCount ? 'disabled' : ''}}"
+      bindtap="onChooseImage"
+      wx:if="{{editable && images.length < maxCount}}"
+    >
+      <view class="add-icon">+</view>
+      <view class="add-text">{{images.length === 0 ? '添加图片' : '继续添加'}}</view>
+      <view class="add-hint">{{images.length}}/{{maxCount}}</view>
+    </view>
+  </view>
+</view>

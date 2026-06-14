@@ -1,0 +1,121 @@
+<!--pages/publish-wanted/publish-wanted.wxml - 发布求购-->
+<view class="page-container">
+  <scroll-view class="form-scroll" scroll-y="{{true}}">
+    <!-- 求购标题 -->
+    <view class="section">
+      <view class="section-header">
+        <text class="section-title">求购标题</text>
+        <text class="section-required">*</text>
+      </view>
+      <input 
+        class="input-field" 
+        placeholder="例如：求购二手婴儿床" 
+        placeholder-class="placeholder"
+        value="{{formData.title}}"
+        bindinput="onTitleInput"
+        maxlength="20"
+      />
+    </view>
+
+    <!-- 求购描述 -->
+    <view class="section">
+      <view class="section-header">
+        <text class="section-title">求购描述</text>
+        <text class="section-tip">可选</text>
+      </view>
+      <textarea 
+        class="textarea-field" 
+        placeholder="描述您的具体需求..." 
+        placeholder-class="placeholder"
+        value="{{formData.description}}"
+        bindinput="onDescriptionInput"
+        maxlength="500"
+        auto-height="{{true}}"
+      />
+    </view>
+
+    <!-- 分类 -->
+    <view class="section">
+      <view class="section-header">
+        <text class="section-title">分类</text>
+        <text class="section-required">*</text>
+      </view>
+      <picker 
+        mode="selector" 
+        range="{{categoryNames}}" 
+        bindchange="onCategoryChange"
+      >
+        <view class="picker-field">
+          <text class="{{formData.category ? 'picker-text' : 'picker-placeholder'}}">
+            {{formData.category ? formData.categoryName : '请选择分类'}}
+          </text>
+          <text class="picker-arrow">></text>
+        </view>
+      </picker>
+    </view>
+
+    <!-- 预算 -->
+    <view class="section">
+      <view class="section-header">
+        <text class="section-title">预算</text>
+      </view>
+      
+      <picker 
+        mode="selector" 
+        range="{{budgetOptions}}" 
+        bindchange="onBudgetTypeChange"
+      >
+        <view class="picker-field">
+          <text class="picker-text">{{budgetOptions[budgetType]}}</text>
+          <text class="picker-arrow">></text>
+        </view>
+      </picker>
+      
+      <view class="budget-inputs" wx:if="{{budgetType === 1}}">
+        <input 
+          class="input-field input-field--budget" 
+          type="digit" 
+          placeholder="最低" 
+          placeholder-class="placeholder"
+          value="{{formData.budgetMin}}"
+          bindinput="onBudgetMinInput"
+        />
+        <text class="budget-separator">至</text>
+        <input 
+          class="input-field input-field--budget" 
+          type="digit" 
+          placeholder="最高" 
+          placeholder-class="placeholder"
+          value="{{formData.budgetMax}}"
+          bindinput="onBudgetMaxInput"
+        />
+      </view>
+    </view>
+
+    <!-- 联系方式 -->
+    <view class="section">
+      <view class="section-header">
+        <text class="section-title">联系方式</text>
+        <text class="section-required">*</text>
+      </view>
+      <input 
+        class="input-field" 
+        placeholder="手机号或微信号" 
+        placeholder-class="placeholder"
+        value="{{formData.contactInfo}}"
+        bindinput="onContactInput"
+      />
+    </view>
+
+    <!-- 提交按钮 -->
+    <view class="submit-section">
+      <button 
+        class="btn btn-primary btn-block btn-lg" 
+        bindtap="onSubmit"
+        disabled="{{!canSubmit || submitting}}"
+      >
+        {{submitting ? '发布中...' : '发布求购'}}
+      </button>
+    </view>
+  </scroll-view>
+</view>

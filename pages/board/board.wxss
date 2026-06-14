@@ -1,0 +1,196 @@
+/* pages/board/board.wxss - 社区留言板 · 湖畔晨光 */
+
+.page-container {
+  padding-bottom: 32rpx;
+  background: var(--color-bg-page);
+}
+
+/* ========== 发布按钮区域 ========== */
+.publish-section {
+  padding: 24rpx 32rpx;
+  background: var(--color-bg-card);
+  margin-bottom: 12rpx;
+}
+
+/* ========== Tab 切换 ========== */
+.tab-section {
+  display: flex;
+  background: var(--color-bg-card);
+  margin-bottom: 12rpx;
+  border-bottom: 1rpx solid var(--color-border-light);
+}
+
+.tab-item {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 92rpx;
+  font-size: 30rpx;
+  color: var(--color-text-secondary);
+  position: relative;
+  transition: color var(--transition-fast);
+}
+
+.tab-item--active {
+  color: var(--color-primary);
+  font-weight: 600;
+}
+
+.tab-item--active::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 40rpx;
+  height: 5rpx;
+  background: var(--color-primary);
+  border-radius: var(--radius-full);
+}
+
+/* ========== 留言列表 ========== */
+.post-list {
+  padding: 0 24rpx;
+}
+
+.post-card {
+  background: var(--color-bg-card);
+  border-radius: var(--radius-xl);
+  padding: 24rpx;
+  margin-bottom: 18rpx;
+  box-shadow: var(--shadow-xs);
+  transition: box-shadow var(--transition-fast);
+}
+
+.post-card:active {
+  box-shadow: var(--shadow-sm);
+}
+
+/* 作者信息 */
+.post-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 14rpx;
+}
+
+.author-avatar {
+  width: 72rpx;
+  height: 72rpx;
+  border-radius: 50%;
+  margin-right: 14rpx;
+  background: var(--color-bg-tag);
+}
+
+.author-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.author-name {
+  font-size: 28rpx;
+  font-weight: 500;
+  color: var(--color-text-primary);
+  margin-bottom: 4rpx;
+}
+
+.post-time {
+  font-size: 24rpx;
+  color: var(--color-text-tertiary);
+}
+
+/* 留言内容 */
+.post-content {
+  display: block;
+  font-size: 30rpx;
+  color: var(--color-text-primary);
+  line-height: 1.75;
+  margin-bottom: 14rpx;
+  word-break: break-all;
+}
+
+/* 留言图片 */
+.post-images {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10rpx;
+  margin-bottom: 14rpx;
+}
+
+.post-image {
+  width: 196rpx;
+  height: 196rpx;
+  border-radius: var(--radius-md);
+  background: var(--color-bg-tag);
+}
+
+/* 互动栏 */
+.post-actions {
+  display: flex;
+  align-items: center;
+  padding-top: 14rpx;
+  border-top: 1rpx solid var(--color-border-light);
+}
+
+.action-item {
+  display: flex;
+  align-items: center;
+  margin-right: 44rpx;
+  padding: 6rpx 0;
+}
+
+.action-icon {
+  font-size: 34rpx;
+  margin-right: 6rpx;
+}
+
+.action-count {
+  font-size: 26rpx;
+  color: var(--color-text-secondary);
+}
+
+/* ========== 加载与空状态 ========== */
+.loading-more {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 32rpx;
+  font-size: 26rpx;
+  color: var(--color-text-tertiary);
+}
+
+.no-more {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 32rpx;
+  font-size: 26rpx;
+  color: var(--color-text-tertiary);
+}
+
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 80rpx 32rpx;
+}
+
+.empty-image {
+  width: 280rpx;
+  height: 280rpx;
+  margin-bottom: 28rpx;
+  opacity: 0.8;
+}
+
+.empty-text {
+  font-size: 30rpx;
+  color: var(--color-text-tertiary);
+  margin-bottom: 10rpx;
+}
+
+.empty-subtext {
+  font-size: 26rpx;
+  color: var(--color-text-tertiary);
+}

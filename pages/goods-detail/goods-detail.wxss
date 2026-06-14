@@ -1,0 +1,251 @@
+/* pages/goods-detail/goods-detail.wxss - 商品详情 · 湖畔晨光 */
+
+/* ================================================
+   设计色板
+   --pri:   #3D7A7C  主色
+   --priL:  #EEF6F6  主色浅底
+   --red:   #DC2626  警示
+   --bg:    #F7F4F0  页面背景
+   --card:  #FFFFFF  卡片
+   --t1:    #2C2416  主文字
+   --t2:    #6B6255  次文字
+   --t3:    #A09888  弱文字
+   ================================================ */
+
+.page {
+  min-height: 100vh;
+  background: #F7F4F0;
+  padding-bottom: calc(140rpx + env(safe-area-inset-bottom));
+}
+
+/* ========== 加载 ========== */
+.loading-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 60vh;
+}
+.loading-spinner { margin-bottom: 24rpx; }
+.loading-spinner {
+  width: 52rpx; height: 52rpx;
+  border: 4rpx solid #E6E1DA;
+  border-top-color: #3D7A7C;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+.loading-text { font-size: 28rpx; color: #A09888; }
+
+/* ========== 图片轮播 ========== */
+.swiper-box {
+  position: relative;
+  width: 100%;
+  height: 750rpx;
+  background: #E6E1DA;
+}
+.swiper { width: 100%; height: 100%; }
+.swiper-img { width: 100%; height: 100%; }
+
+.img-counter {
+  position: absolute;
+  right: 24rpx; bottom: 24rpx;
+  background: rgba(44,36,22,0.5);
+  padding: 6rpx 20rpx;
+  border-radius: 99rpx;
+}
+.img-counter text { font-size: 22rpx; color: #fff; }
+
+.status-tag {
+  position: absolute;
+  left: 24rpx; top: 24rpx;
+  padding: 8rpx 24rpx;
+  border-radius: 99rpx;
+  font-size: 24rpx; font-weight: 600; color: #fff;
+  letter-spacing: 2rpx;
+}
+.status-selling { background: rgba(107,158,90,0.88); }
+.status-off, .status-sold { background: rgba(160,152,136,0.85); }
+
+.back-btn {
+  position: absolute;
+  left: 20rpx; top: 90rpx;
+  width: 56rpx; height: 56rpx;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.85);
+  display: flex;
+  align-items: center; justify-content: center;
+}
+.back-btn text { font-size: 40rpx; color: #2C2416; line-height: 1; }
+
+/* ========== 价格卡片 ========== */
+.price-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: -36rpx 24rpx 0;
+  padding: 28rpx 32rpx;
+  background: #fff;
+  border-radius: 24rpx;
+  box-shadow: 0 4rpx 24rpx rgba(44,36,22,0.08);
+  position: relative;
+  z-index: 2;
+}
+.price-left { display: flex; align-items: baseline; }
+.price-symbol { font-size: 32rpx; color: #DC2626; font-weight: 600; margin-right: 4rpx; }
+.price-num { font-size: 56rpx; font-weight: 700; color: #DC2626; line-height: 1; }
+.price-unit { font-size: 26rpx; color: #A09888; margin-left: 6rpx; }
+
+.condition-chip {
+  display: inline-flex;
+  padding: 10rpx 24rpx;
+  border-radius: 99rpx;
+  background: #EEF6F6;
+  font-size: 26rpx; font-weight: 500; color: #3D7A7C;
+}
+
+/* ========== 标题 ========== */
+.title-box {
+  padding: 28rpx 32rpx 20rpx;
+  background: #fff;
+  margin: 16rpx 24rpx 0;
+  border-radius: 24rpx;
+}
+.goods-title {
+  font-size: 36rpx; font-weight: 600;
+  color: #2C2416; line-height: 1.5;
+}
+.title-meta {
+  display: flex; align-items: center;
+  margin-top: 16rpx;
+}
+.meta-time { margin-right: 24rpx; }
+.meta-time { font-size: 24rpx; color: #A09888; }
+.meta-views { font-size: 24rpx; color: #A09888; }
+
+/* ========== 商品信息卡片 ========== */
+.info-card {
+  margin: 16rpx 24rpx;
+  padding: 20rpx 32rpx;
+  background: #fff;
+  border-radius: 24rpx;
+}
+.info-row {
+  display: flex;
+  border-bottom: 1rpx solid #F0EDE8;
+}
+.info-row:last-child { border-bottom: none; }
+.info-cell {
+  flex: 1;
+  padding: 22rpx 0;
+}
+.info-cell--full { flex: none; width: 100%; }
+.info-label { display: block; font-size: 24rpx; color: #A09888; margin-bottom: 8rpx; }
+.info-val { font-size: 30rpx; color: #2C2416; font-weight: 500; }
+.info-val--phone {
+  color: #3D7A7C;
+  font-weight: 600;
+  text-decoration: underline;
+}
+
+/* ========== 卖家卡片 ========== */
+.seller-card {
+  margin: 0 24rpx 16rpx;
+  padding: 24rpx 32rpx;
+  background: #fff;
+  border-radius: 24rpx;
+}
+.card-section-title {
+  font-size: 24rpx; color: #A09888;
+  margin-bottom: 16rpx; display: block;
+}
+.seller-row { display: flex; align-items: center; }
+.seller-avatar { width: 80rpx; height: 80rpx; border-radius: 50%; background: #E6E1DA; margin-right: 20rpx; }
+.seller-info { display: flex; flex-direction: column; }
+.seller-name { font-size: 30rpx; font-weight: 500; color: #2C2416; }
+.seller-phone-sub { font-size: 24rpx; color: #3D7A7C; margin-top: 4rpx; }
+
+/* ========== 描述 ========== */
+.desc-card {
+  margin: 0 24rpx;
+  padding: 24rpx 32rpx;
+  background: #fff;
+  border-radius: 24rpx;
+}
+.desc-text {
+  font-size: 30rpx; color: #6B6255;
+  line-height: 1.9; word-break: break-all;
+}
+
+/* ========== 底部留白 ========== */
+.bottom-gap { height: 24rpx; }
+
+/* ========== 底部操作栏 ========== */
+.bottom-bar {
+  position: fixed;
+  left: 0; right: 0; bottom: 0;
+  z-index: 100;
+  background: #fff;
+  padding: 16rpx 24rpx;
+  padding-bottom: calc(16rpx + env(safe-area-inset-bottom));
+  box-shadow: 0 -4rpx 20rpx rgba(44,36,22,0.06);
+}
+.bottom-bar__inner { display: flex; align-items: center; }
+
+/* 买家操作栏 */
+.buyer-bar { }
+
+.fav-btn {
+  flex-shrink: 0;
+  width: 104rpx; height: 88rpx;
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  border-radius: 20rpx;
+  background: #F7F4F0;
+}
+.fav-btn text:first-child { margin-bottom: 2rpx; }
+.fav-btn text { font-size: 30rpx; }
+.fav-label { font-size: 20rpx !important; color: #6B6255; }
+.fav-btn--active { background: #FFF0F0; }
+.fav-btn--active .fav-label { color: #DC2626; }
+
+.chat-btn {
+  flex: 1; height: 88rpx; margin-left: 16rpx;
+  display: flex; align-items: center; justify-content: center;
+  background: linear-gradient(135deg, #3D7A7C, #5A9FA0);
+  border-radius: 44rpx;
+  font-size: 32rpx; font-weight: 600; color: #fff;
+  letter-spacing: 2rpx;
+  box-shadow: 0 6rpx 20rpx rgba(61,122,124,0.30);
+}
+
+/* 卖家操作栏 */
+.owner-bar { }
+
+.owner-action {
+  flex: 1; height: 76rpx; margin-right: 10rpx;
+  display: flex; align-items: center; justify-content: center;
+  border-radius: 16rpx;
+  font-size: 26rpx; font-weight: 500;
+}
+.owner-action--edit { background: #3D7A7C; color: #fff; }
+.owner-action--off { background: #F0EDE8; color: #6B6255; }
+.owner-action--on { background: #6B9E5A; color: #fff; }
+.owner-action--sold { background: #E8A840; color: #fff; }
+.owner-action--delete { flex: 0 0 76rpx; background: #FFF0F0; color: #DC2626; border-radius: 50%; margin-right: 0; }
+
+/* ========== 错误状态 ========== */
+.error-box {
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  height: 70vh;
+}
+.error-icon { font-size: 80rpx; margin-bottom: 16rpx; }
+.error-text { font-size: 30rpx; color: #6B6255; }
+.error-btn {
+  margin-top: 24rpx;
+  padding: 18rpx 56rpx;
+  background: linear-gradient(135deg, #3D7A7C, #5A9FA0);
+  color: #fff; font-size: 30rpx; font-weight: 600;
+  border-radius: 44rpx;
+}

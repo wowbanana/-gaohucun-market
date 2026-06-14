@@ -1,0 +1,43 @@
+<!-- pages/my-favorites/my-favorites.wxml - 我的收藏页 -->
+<view class="my-favorites-page">
+  <!-- 收藏列表 -->
+  <view class="favorites-list" wx:if="{{favoritesList.length > 0}}">
+    <view class="favorite-card" wx:for="{{favoritesList}}" wx:key="goodsId">
+      <image
+        class="goods-image"
+        src="{{item.goodsImage || '/images/default-goods.png'}}"
+        mode="aspectFill"
+        data-id="{{item.goodsId}}"
+        data-status="{{item.goodsStatus}}"
+        bindtap="onGoodsTap"
+      />
+      <view class="goods-info" data-id="{{item.goodsId}}" data-status="{{item.goodsStatus}}" bindtap="onGoodsTap">
+        <text class="goods-title">{{item.goodsTitle}}</text>
+        <view class="goods-price-row">
+          <text class="goods-price">¥{{item.goodsPrice}}</text>
+          <text class="goods-unit" wx:if="{{item.goodsUnit}}">/{{item.goodsUnit}}</text>
+        </view>
+        <text class="goods-condition">{{item.goodsCondition}}</text>
+      </view>
+      <view class="unfavorite-btn" data-id="{{item.goodsId}}" catchtap="onUnfavorite">
+        💔 取消
+      </view>
+    </view>
+  </view>
+
+  <!-- 空状态 -->
+  <view class="empty-state" wx:if="{{!loading && favoritesList.length === 0}}">
+    <text class="empty-icon">💝</text>
+    <text class="empty-text">还没有收藏任何宝贝</text>
+    <text class="empty-hint">去首页逛逛，收藏感兴趣的商品吧</text>
+  </view>
+
+  <!-- 加载状态 -->
+  <view class="loading-status" wx:if="{{loading}}">
+    <view class="loading-spinner"></view>
+    <text>加载中...</text>
+  </view>
+  <view class="no-more" wx:elif="{{!hasMore && favoritesList.length > 0}}">
+    <text>— 没有更多了 —</text>
+  </view>
+</view>

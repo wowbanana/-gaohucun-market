@@ -1,0 +1,71 @@
+<!-- pages/hot-rank/hot-rank.wxml - 热搜榜页 -->
+<view class="hot-rank-page">
+  <!-- Tab栏 -->
+  <view class="tab-bar">
+    <view
+      class="tab-item {{currentTab === item.key ? 'active' : ''}}"
+      wx:for="{{tabs}}"
+      wx:key="key"
+      data-key="{{item.key}}"
+      bindtap="onTabChange"
+    >
+      {{item.name}}
+    </view>
+  </view>
+
+  <!-- 加载中 -->
+  <view class="loading-container" wx:if="{{loading}}">
+    <view class="loading-spinner"></view>
+  </view>
+
+  <!-- 热门商品 -->
+  <view class="hot-goods" wx:if="{{!loading && currentTab === 'goods'}}">
+    <view
+      class="rank-item"
+      wx:for="{{hotGoodsList}}"
+      wx:key="_id"
+      data-id="{{item._id}}"
+      bindtap="onGoodsTap"
+    >
+      <view class="rank-number {{index < 3 ? 'top-' + (index + 1) : ''}}">
+        {{index + 1}}
+      </view>
+      <image class="rank-image" src="{{item.imageUrl}}" mode="aspectFill" />
+      <view class="rank-info">
+        <text class="rank-title">{{item.title}}</text>
+        <view class="rank-meta">
+          <text class="rank-price">¥{{item.price}}</text>
+          <text class="rank-views">{{item.viewCount || 0}}次浏览</text>
+        </view>
+      </view>
+    </view>
+
+    <view class="empty-state" wx:if="{{hotGoodsList.length === 0}}">
+      <text class="empty-icon">🔥</text>
+      <text class="empty-text">暂无热门商品</text>
+    </view>
+  </view>
+
+  <!-- 热搜词 -->
+  <view class="hot-keywords" wx:if="{{!loading && currentTab === 'keywords'}}">
+    <view
+      class="keyword-item"
+      wx:for="{{hotKeywords}}"
+      wx:key="keyword"
+      data-keyword="{{item.keyword}}"
+      bindtap="onKeywordTap"
+    >
+      <view class="keyword-rank {{index < 3 ? 'top' : ''}}">
+        {{index + 1}}
+      </view>
+      <text class="keyword-text">{{item.keyword}}</text>
+      <text class="keyword-count">{{item.count}}次</text>
+      <text class="keyword-hot" wx:if="{{index < 3}}">🔥</text>
+    </view>
+
+    <view class="empty-state" wx:if="{{hotKeywords.length === 0}}">
+      <text class="empty-icon">🔥</text>
+      <text class="empty-text">暂无热搜词</text>
+    </view>
+  </view>
+</view>

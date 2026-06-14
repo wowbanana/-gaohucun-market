@@ -1,0 +1,117 @@
+/* pages/publish-wanted/publish-wanted.wxss - 发布求购 · 湖畔晨光 */
+
+.page-container {
+  min-height: 100vh;
+  background: var(--color-bg-page);
+}
+
+.form-scroll {
+  height: 100%;
+  padding-bottom: 32rpx;
+}
+
+.section {
+  background: var(--color-bg-card);
+  padding: 24rpx 32rpx;
+  margin-bottom: 12rpx;
+}
+
+.section-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 16rpx;
+}
+
+.section-title {
+  font-size: 32rpx;
+  font-weight: 600;
+  color: var(--color-text-primary);
+}
+
+.section-required {
+  color: var(--color-danger);
+  font-size: 32rpx;
+  margin-left: 6rpx;
+}
+
+.section-tip {
+  flex: 1;
+  text-align: right;
+  font-size: 26rpx;
+  color: var(--color-text-tertiary);
+}
+
+.input-field {
+  width: 100%;
+  height: 96rpx;
+  border: 2rpx solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: 0 24rpx;
+  font-size: 34rpx;
+  color: var(--color-text-primary);
+  background: var(--color-bg-input);
+  box-sizing: border-box;
+}
+
+.textarea-field {
+  width: 100%;
+  min-height: 180rpx;
+  border: 2rpx solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: 20rpx 24rpx;
+  font-size: 34rpx;
+  color: var(--color-text-primary);
+  background: var(--color-bg-input);
+  box-sizing: border-box;
+}
+
+.placeholder {
+  color: var(--color-text-tertiary);
+  font-size: 30rpx;
+}
+
+.picker-field {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 96rpx;
+  border: 2rpx solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: 0 24rpx;
+  background: var(--color-bg-input);
+}
+
+.picker-text {
+  font-size: 34rpx;
+  color: var(--color-text-primary);
+}
+
+.picker-placeholder {
+  font-size: 30rpx;
+  color: var(--color-text-tertiary);
+}
+
+.picker-arrow {
+  font-size: 28rpx;
+  color: var(--color-text-tertiary);
+}
+
+.budget-inputs {
+  display: flex;
+  align-items: center;
+  gap: 14rpx;
+  margin-top: 14rpx;
+}
+
+.input-field--budget {
+  flex: 1;
+}
+
+.budget-separator {
+  font-size: 30rpx;
+  color: var(--color-text-secondary);
+}
+
+.submit-section {
+  padding: 32rpx;
+}

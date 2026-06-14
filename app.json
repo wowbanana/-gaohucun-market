@@ -1,0 +1,80 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/goods-detail/goods-detail",
+    "pages/publish/publish",
+    "pages/category/category",
+    "pages/search/search",
+    "pages/profile/profile",
+    "pages/wanted/wanted",
+    "pages/publish-wanted/publish-wanted",
+    "pages/wanted-detail/wanted-detail",
+    "pages/board/board",
+    "pages/board-detail/board-detail",
+    "pages/publish-board/publish-board",
+    "pages/my-goods/my-goods",
+    "pages/my-favorites/my-favorites",
+    "pages/edit-profile/edit-profile",
+    "pages/notice-detail/notice-detail",
+    "pages/hot-rank/hot-rank",
+    "pages/chat/chat",
+    "pages/chat-list/chat-list",
+    "pages/edit-goods/edit-goods"
+  ],
+  "window": {
+    "backgroundTextStyle": "dark",
+    "navigationBarBackgroundColor": "#3D7A7C",
+    "navigationBarTitleText": "高湖村二手市场",
+    "navigationBarTextStyle": "white",
+    "backgroundColor": "#F7F4F0"
+  },
+  "tabBar": {
+    "color": "#A09888",
+    "selectedColor": "#3D7A7C",
+    "backgroundColor": "#FFFFFF",
+    "borderStyle": "white",
+    "list": [
+      {
+        "pagePath": "pages/index/index",
+        "text": "首页",
+        "iconPath": "images/tabbar/home.png",
+        "selectedIconPath": "images/tabbar/home-active.png"
+      },
+      {
+        "pagePath": "pages/category/category",
+        "text": "分类",
+        "iconPath": "images/tabbar/category.png",
+        "selectedIconPath": "images/tabbar/category-active.png"
+      },
+      {
+        "pagePath": "pages/publish/publish",
+        "text": "发布",
+        "iconPath": "images/tabbar/publish.png",
+        "selectedIconPath": "images/tabbar/publish-active.png"
+      },
+      {
+        "pagePath": "pages/board/board",
+        "text": "留言",
+        "iconPath": "images/tabbar/board.png",
+        "selectedIconPath": "images/tabbar/board-active.png"
+      },
+      {
+        "pagePath": "pages/profile/profile",
+        "text": "我的",
+        "iconPath": "images/tabbar/profile.png",
+        "selectedIconPath": "images/tabbar/profile-active.png"
+      }
+    ]
+  },
+  "permission": {
+    "scope.userLocation": {
+      "desc": "用于计算并展示商品与买家之间的距离"
+    }
+  },
+  "requiredPrivateInfos": [
+    "chooseLocation"
+  ],
+  "sitemapLocation": "sitemap.json",
+  "style": "v2",
+  "lazyCodeLoading": "requiredComponents"
+}
