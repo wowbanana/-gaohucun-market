@@ -1,8 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 48 48" fill="none">
-  <!-- 文档 -->
-  <path d="M12 6H29L38 15V40C38 41.7 36.7 43 35 43H13C11.3 43 10 41.7 10 40V9C10 7.3 11.3 6 13 6H12Z" stroke="#6B6255" stroke-width="3" stroke-linejoin="round"/>
-  <!-- 折角 -->
-  <path d="M29 6V15H38" stroke="#6B6255" stroke-width="3" stroke-linejoin="round"/>
-  <!-- 对勾 -->
-  <path d="M16 26L21 31L32 20" stroke="#6B6255" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
-</svg>

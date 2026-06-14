@@ -1,6 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 48 48" fill="none">
-  <!-- 聊天气泡 -->
-  <path d="M10 10H38C40.2 10 42 11.8 42 14V29C42 31.2 40.2 33 38 33H28L18 42V33H10C7.8 33 6 31.2 6 29V14C6 11.8 7.8 10 10 10Z" stroke="#6B6255" stroke-width="3" stroke-linejoin="round"/>
-  <!-- 问号 -->
-  <text x="24" y="26" text-anchor="middle" font-size="18" font-weight="600" fill="#6B6255" font-family="sans-serif">?</text>
-</svg>

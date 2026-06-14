@@ -5,6 +5,14 @@
       {
         "value": ".eslintrc.js",
         "type": "file"
+      },
+      {
+        "value": ".agents",
+        "type": "folder"
+      },
+      {
+        "value": ".claude",
+        "type": "folder"
       }
     ],
     "include": []
