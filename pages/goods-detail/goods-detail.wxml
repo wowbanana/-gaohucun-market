@@ -26,7 +26,7 @@
       </view>
       <!-- 状态标签 -->
       <view class="status-tag status-{{goods.status}}" wx:if="{{isOwner}}">
-        <text>{{goods.status === 'selling' ? '在售' : goods.status === 'sold' ? '已售' : '已下架'}}</text>
+        <text>{{statusText}}</text>
       </view>
       <!-- 返回按钮 -->
       <view class="back-btn" bindtap="onBackTap">

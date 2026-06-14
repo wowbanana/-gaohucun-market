@@ -22,8 +22,26 @@ exports.main = async (event) => {
   const wxContext = cloud.getWXContext();
   const openid = wxContext.OPENID;
 
+  // 集合不存在时返回空数据，避免首次使用时报错
+  const ensureCollection = async (name) => {
+    try {
+      return await db.collection(name).limit(1).get();
+    } catch (e) {
+      if (e.errCode === -502005 || String(e.message).includes('not exist')) {
+        return null;
+      }
+      throw e;
+    }
+  };
+
   try {
     if (action === 'list') {
+      // 检查集合是否存在
+      const testRes = await ensureCollection('notifications');
+      if (testRes === null) {
+        return { success: true, data: { list: [] } };
+      }
+
       // 获取发给当前用户的通知
       const res = await db.collection('notifications')
         .where({ toOpenid: openid })
@@ -52,6 +70,11 @@ exports.main = async (event) => {
     }
 
     if (action === 'markRead') {
+      const testRes = await ensureCollection('notifications');
+      if (testRes === null) {
+        return { success: true, data: { markedCount: 0 } };
+      }
+
       // 标记所有通知为已读
       const unreadRes = await db.collection('notifications')
         .where({ toOpenid: openid, read: false })

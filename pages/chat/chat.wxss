@@ -44,7 +44,6 @@
 
 .msg-text { font-size: 30rpx; line-height: 1.6; color: var(--color-text-primary); }
 
-/* 消息体（气泡 + 时间戳） */
 .msg-body { display: flex; flex-direction: column; max-width: 60%; }
 .msg-body-self { align-items: flex-end; }
 
@@ -55,12 +54,54 @@
 .message-other .msg-time { align-self: flex-start; }
 .message-self .msg-time { align-self: flex-end; }
 
+/* ========== 语音消息气泡 ========== */
+.msg-voice {
+  display: inline-flex; align-items: center;
+  padding: 14rpx 24rpx; border-radius: var(--radius-lg);
+  min-width: 160rpx; max-width: 280rpx;
+}
+
+.msg-voice-other {
+  margin-left: 14rpx;
+  background: var(--color-bg-card); border-top-left-radius: 4rpx;
+}
+
+.msg-voice-self {
+  margin-right: 14rpx;
+  background: var(--color-primary); border-top-right-radius: 4rpx;
+}
+
+.voice-icon {
+  font-size: 36rpx; flex-shrink: 0;
+}
+
+.voice-dur {
+  font-size: 26rpx; margin: 0 10rpx;
+  color: var(--color-text-primary);
+}
+
+.msg-voice-self .voice-dur { color: #fff; }
+.msg-voice-self .voice-icon { order: 2; }
+.msg-voice-self .voice-dur { order: 1; }
+
 .message-bottom-space { height: 20rpx; }
 
+/* ========== 输入栏 ========== */
 .input-bar {
   display: flex; align-items: center; padding: 14rpx 24rpx;
   padding-bottom: calc(14rpx + env(safe-area-inset-bottom));
   background: var(--color-bg-card); border-top: 1rpx solid var(--color-border-light);
+}
+
+/* 模式切换按钮 */
+.mode-toggle {
+  width: 72rpx; height: 72rpx;
+  display: flex; align-items: center; justify-content: center;
+  margin-right: 12rpx; flex-shrink: 0;
+}
+
+.mode-toggle-icon {
+  font-size: 40rpx;
 }
 
 .msg-input {
@@ -75,3 +116,83 @@
 }
 
 .send-btn-active { background: var(--color-primary); color: #FFFFFF; }
+
+/* 语音录制按钮 */
+.voice-record-btn {
+  flex: 1; height: 72rpx;
+  display: flex; align-items: center; justify-content: center;
+  background: #F0EDE7; border-radius: 50rpx;
+  font-size: 28rpx; color: #6B6255;
+  transition: background 0.15s;
+}
+
+.voice-recording {
+  background: rgba(61, 122, 124, 0.18);
+  color: #3D7A7C; font-weight: 600;
+}
+
+.voice-cancel {
+  background: rgba(220, 38, 38, 0.15);
+  color: #DC2626; font-weight: 600;
+}
+
+/* ========== 录音浮层 ========== */
+.voice-overlay {
+  position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+  z-index: 1000; display: flex; align-items: center; justify-content: center;
+  pointer-events: none;
+}
+
+.voice-overlay-mask {
+  position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0, 0, 0, 0.45);
+}
+
+.voice-overlay-card {
+  position: relative; z-index: 1;
+  width: 420rpx; padding: 48rpx 32rpx 36rpx;
+  background: #fff; border-radius: 24rpx;
+  display: flex; flex-direction: column; align-items: center;
+  box-shadow: 0 16rpx 48rpx rgba(0, 0, 0, 0.18);
+}
+
+.voice-wave-row {
+  display: flex; align-items: center; justify-content: center;
+  height: 80rpx; gap: 6rpx;
+  margin-bottom: 20rpx;
+}
+
+.voice-wave-bar {
+  width: 6rpx; height: 20rpx;
+  background: #3D7A7C;
+  border-radius: 3rpx;
+  animation: voicePulse 0.8s ease-in-out infinite alternate;
+}
+
+@keyframes voicePulse {
+  from { height: 16rpx; opacity: 0.4; }
+  to   { height: 72rpx; opacity: 1; }
+}
+
+@keyframes voicePulseCancel {
+  from { height: 16rpx; opacity: 0.4; }
+  to   { height: 72rpx; opacity: 1; }
+}
+
+.voice-overlay-card.voice-overlay-cancel {
+  background: #FFF5F5;
+}
+
+.voice-wave-bar--cancel {
+  background: #DC2626;
+  animation: voicePulseCancel 0.8s ease-in-out infinite alternate;
+}
+
+.voice-overlay-time {
+  font-size: 48rpx; font-weight: 600; color: #2C2416;
+  margin-bottom: 12rpx;
+}
+
+.voice-overlay-hint {
+  font-size: 24rpx; color: #A09888;
+}

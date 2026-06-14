@@ -24,8 +24,15 @@
       <block wx:if="{{item.fromUserId !== myOpenid}}">
         <image class="msg-avatar" src="{{otherUser.avatarUrl || '/images/default-avatar.png'}}" mode="aspectFill"></image>
         <view class="msg-body">
-          <view class="msg-bubble msg-bubble-other">
+          <!-- 文字消息 -->
+          <view class="msg-bubble msg-bubble-other" wx:if="{{item.type !== 'voice'}}">
             <text class="msg-text">{{item.content}}</text>
+          </view>
+          <!-- 语音消息 -->
+          <view class="msg-voice msg-voice-other" wx:else
+            bindtap="onPlayVoice" data-fileid="{{item.content}}" data-msgid="{{item._id}}">
+            <text class="voice-icon">{{voicePlayingId === item._id ? '🔊' : '🔈'}}</text>
+            <text class="voice-dur">{{item.duration || 0}}''</text>
           </view>
           <text class="msg-time" wx:if="{{item.timeText}}">{{item.timeText}}</text>
         </view>
@@ -33,8 +40,15 @@
       <!-- 自己的消息 -->
       <block wx:else>
         <view class="msg-body msg-body-self">
-          <view class="msg-bubble msg-bubble-self">
+          <!-- 文字消息 -->
+          <view class="msg-bubble msg-bubble-self" wx:if="{{item.type !== 'voice'}}">
             <text class="msg-text">{{item.content}}</text>
+          </view>
+          <!-- 语音消息 -->
+          <view class="msg-voice msg-voice-self" wx:else
+            bindtap="onPlayVoice" data-fileid="{{item.content}}" data-msgid="{{item._id}}">
+            <text class="voice-dur">{{item.duration || 0}}''</text>
+            <text class="voice-icon">{{voicePlayingId === item._id ? '🔊' : '🔈'}}</text>
           </view>
           <text class="msg-time" wx:if="{{item.timeText}}">{{item.timeText}}</text>
         </view>
@@ -47,17 +61,51 @@
 
   <!-- 输入栏 -->
   <view class="input-bar">
-    <input
-      class="msg-input"
-      placeholder="输入消息..."
-      value="{{inputText}}"
-      bindinput="onInputChange"
-      bindconfirm="onSend"
-      confirm-type="send"
-      adjust-position="{{true}}"
-    />
-    <view class="send-btn {{inputText.length > 0 ? 'send-btn-active' : ''}}" bindtap="onSend">
-      <text>发送</text>
+    <!-- 模式切换按钮 -->
+    <view class="mode-toggle" bindtap="onToggleInputMode">
+      <text class="mode-toggle-icon">{{inputMode === 'text' ? '🎤' : '⌨'}}</text>
     </view>
+
+    <!-- 文字模式 -->
+    <block wx:if="{{inputMode === 'text'}}">
+      <input
+        class="msg-input"
+        placeholder="输入消息..."
+        value="{{inputText}}"
+        bindinput="onInputChange"
+        bindconfirm="onSend"
+        confirm-type="send"
+        adjust-position="{{true}}"
+      />
+      <view class="send-btn {{inputText.length > 0 ? 'send-btn-active' : ''}}" bindtap="onSend">
+        <text>发送</text>
+      </view>
+    </block>
+
+    <!-- 语音模式 -->
+    <block wx:else>
+      <view
+        class="voice-record-btn {{voiceBtnClass}}"
+        bindtouchstart="onVoiceTouchStart"
+        bindtouchend="onVoiceTouchEnd"
+        bindtouchcancel="onVoiceTouchCancel"
+        bindtouchmove="onVoiceTouchMove"
+      >
+        <text>{{voiceBtnText}}</text>
+      </view>
+    </block>
+  </view>
+
+  <!-- 录音浮层 -->
+  <view class="voice-overlay" wx:if="{{isRecording}}">
+    <view class="voice-overlay-card {{voiceOverlayCardClass}}">
+      <view class="voice-wave-row">
+        <view class="voice-wave-bar {{voiceWaveBarClass}}" wx:for="{{[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15]}}" wx:key="*this"
+          style="animation-delay: {{item * 0.08}}s;"></view>
+      </view>
+      <text class="voice-overlay-time">{{recordingDuration}}''</text>
+      <text class="voice-overlay-hint">{{voiceOverlayHintText}}</text>
+    </view>
+    <view class="voice-overlay-mask"></view>
   </view>
 </view>

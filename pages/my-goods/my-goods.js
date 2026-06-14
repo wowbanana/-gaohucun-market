@@ -10,6 +10,7 @@ Page({
       { key: 'off', name: '已下架' }
     ],
     currentTab: 'selling',
+    emptyText: '暂无在售商品',
     goodsList: [],
     loading: false,
     hasMore: true,
@@ -29,8 +30,10 @@ Page({
   // 切换Tab
   onTabChange(e) {
     const tab = e.currentTarget.dataset.key;
+    const emptyMap = { selling: '暂无在售商品', sold: '暂无已售商品', reserved: '暂无下架商品' };
     this.setData({
       currentTab: tab,
+      emptyText: emptyMap[tab] || '暂无商品',
       page: 1,
       goodsList: [],
       hasMore: true

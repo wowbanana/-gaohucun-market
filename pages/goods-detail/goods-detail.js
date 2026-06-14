@@ -74,10 +74,14 @@ Page({
           goods.imageUrls = goods.images && goods.images.length > 0 ? goods.images : ['/images/default-goods.png'];
         }
 
+        const statusMap = { selling: '在售', sold: '已售', reserved: '已下架' };
+        const statusText = statusMap[goods.status] || '在售';
+
         this.setData({
           goods: goods,
           isOwner: isOwner,
           isFavorited: goods.isFavorited || false,
+          statusText: statusText,
           seller: {
             nickName: goods.sellerName || '匿名用户',
             avatarUrl: goods.sellerAvatar || '/images/default-avatar.png',

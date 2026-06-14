@@ -1,48 +1,31 @@
 <!-- pages/board-detail/board-detail.wxml - 留言详情页 -->
 <view class="board-detail-page">
-  <!-- 加载状态 -->
   <view class="loading-container" wx:if="{{loading}}">
     <view class="loading-spinner"></view>
     <text class="loading-text">加载中...</text>
   </view>
 
   <block wx:if="{{!loading && post}}">
-    <!-- 留言主体 -->
     <view class="post-detail-card">
-      <!-- 作者信息 -->
       <view class="post-author">
         <image class="author-avatar" src="{{post.authorAvatar || '/images/default-avatar.png'}}" mode="aspectFill" />
         <view class="author-info">
           <text class="author-name">{{post.authorName}}</text>
           <text class="post-time">{{post.createTimeFormatted}}</text>
         </view>
-        <view class="post-group-tag" wx:if="{{post.group}}">
-          {{post.group}}
-        </view>
+        <view class="post-group-tag" wx:if="{{post.group}}">{{post.group}}</view>
       </view>
 
-      <!-- 留言标题 -->
       <view class="post-title">{{post.title}}</view>
-      <!-- 留言内容 -->
       <view class="post-content">{{post.content}}</view>
 
-      <!-- 留言图片 -->
       <view class="post-images" wx:if="{{post.images && post.images.length > 0}}">
         <view class="image-grid {{post.images.length === 1 ? 'single-image' : ''}}">
-          <image
-            wx:for="{{post.images}}"
-            wx:key="index"
-            class="post-image"
-            src="{{item}}"
-            mode="aspectFill"
-            data-url="{{item}}"
-            data-urls="{{post.images}}"
-            bindtap="onPreviewImage"
-          />
+          <image wx:for="{{post.images}}" wx:key="index" class="post-image" src="{{item}}"
+            mode="aspectFill" data-url="{{item}}" data-urls="{{post.images}}" bindtap="onPreviewImage" />
         </view>
       </view>
 
-      <!-- 操作栏 -->
       <view class="post-actions">
         <view class="action-item {{liked ? 'active' : ''}}" bindtap="onLike">
           <text class="action-icon">{{liked ? '❤️' : '🤍'}}</text>
@@ -55,14 +38,12 @@
       </view>
     </view>
 
-    <!-- 评论列表 -->
     <view class="comments-section">
       <view class="section-header">
         <text class="section-title">评论 ({{comments.length}})</text>
       </view>
 
       <view class="comments-list" wx:if="{{comments.length > 0}}">
-        <!-- 一级评论 -->
         <view class="comment-item" wx:for="{{comments}}" wx:key="_id">
           <image class="comment-avatar" src="{{item.authorAvatar || '/images/default-avatar.png'}}" mode="aspectFill" />
           <view class="comment-body">
@@ -70,24 +51,29 @@
               <text class="comment-name">{{item.authorName}}</text>
               <text class="comment-time">{{item.createTimeFormatted}}</text>
             </view>
-            <view class="comment-content">{{item.content}}</view>
+            <view class="comment-content" wx:if="{{item.type !== 'voice'}}">{{item.content}}</view>
+            <view class="comment-voice" wx:else
+              bindtap="onPlayCommentVoice" data-fileid="{{item.content}}" data-msgid="{{item._id}}">
+              <text class="cv-icon">{{voicePlayingId === item._id ? '🔊' : '🔈'}}</text>
+              <text class="cv-dur">{{item.duration || 0}}''</text>
+            </view>
             <view class="comment-actions">
-              <view
-                class="comment-reply-btn"
-                data-reply="{{item}}"
-                bindtap="onShowCommentInput"
-              >
-                回复
-              </view>
+              <view class="comment-reply-btn" data-reply="{{item}}" bindtap="onShowCommentInput">回复</view>
             </view>
 
-            <!-- 二级回复（缩进显示） -->
             <view class="reply-list" wx:if="{{item.replies && item.replies.length > 0}}">
               <view class="reply-item" wx:for="{{item.replies}}" wx:for-item="reply" wx:key="_id">
                 <text class="reply-name">{{reply.authorName}}</text>
                 <text class="reply-colon" wx:if="{{reply.replyToName}}"> 回复 </text>
                 <text class="reply-target" wx:if="{{reply.replyToName}}">@{{reply.replyToName}}</text>
-                <text class="reply-content">：{{reply.content}}</text>
+                <block wx:if="{{reply.type !== 'voice'}}">
+                  <text class="reply-content">：{{reply.content}}</text>
+                </block>
+                <view class="reply-voice" wx:else
+                  bindtap="onPlayCommentVoice" data-fileid="{{reply.content}}" data-msgid="{{reply._id}}">
+                  <text class="cv-icon">{{voicePlayingId === reply._id ? '🔊' : '🔈'}}</text>
+                  <text class="cv-dur">{{reply.duration || 0}}''</text>
+                </view>
                 <text class="reply-time">{{reply.createTimeFormatted}}</text>
               </view>
             </view>
@@ -102,23 +88,44 @@
     </view>
   </block>
 
-  <!-- 底部评论输入栏 -->
   <view class="comment-bar" wx:if="{{!loading && post}}">
-    <view class="comment-input-wrap">
-      <input
-        class="comment-input"
-        placeholder="{{replyTo ? '回复 @' + replyTo.authorName : '写评论...'}}"
-        value="{{commentContent}}"
-        bindinput="onCommentInput"
-        confirm-type="send"
-        bindconfirm="onSubmitComment"
-      />
+    <view class="mode-toggle" bindtap="onToggleInputMode">
+      <text class="mode-toggle-icon">{{inputMode === 'text' ? '🎤' : '⌨'}}</text>
     </view>
-    <view
-      class="comment-send-btn {{canSubmitComment ? 'active' : ''}}"
-      bindtap="onSubmitComment"
-    >
-      发送
+
+    <block wx:if="{{inputMode === 'text'}}">
+      <view class="comment-input-wrap">
+        <input class="comment-input"
+          placeholder="{{replyTo ? '回复 @' + replyTo.authorName : '写评论...'}}"
+          value="{{commentContent}}" bindinput="onCommentInput"
+          confirm-type="send" bindconfirm="onSubmitComment" />
+      </view>
+      <view class="comment-send-btn {{canSubmitComment ? 'active' : ''}}" bindtap="onSubmitComment">发送</view>
+    </block>
+
+    <block wx:else>
+      <view
+        class="voice-record-btn {{voiceBtnClass}}"
+        bindtouchstart="onVoiceTouchStart"
+        bindtouchend="onVoiceTouchEnd"
+        bindtouchcancel="onVoiceTouchCancel"
+        bindtouchmove="onVoiceTouchMove"
+      >
+        <text>{{voiceBtnText}}</text>
+      </view>
+    </block>
+  </view>
+
+  <view class="voice-overlay" wx:if="{{isRecording}}">
+    <view class="voice-overlay-card {{voiceOverlayCardClass}}">
+      <view class="voice-wave-row">
+        <view class="voice-wave-bar {{voiceWaveBarClass}}"
+          wx:for="{{[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15]}}" wx:key="*this"
+          style="animation-delay: {{item * 0.08}}s;"></view>
+      </view>
+      <text class="voice-overlay-time">{{recordingDuration}}''</text>
+      <text class="voice-overlay-hint">{{voiceOverlayHintText}}</text>
     </view>
+    <view class="voice-overlay-mask"></view>
   </view>
 </view>

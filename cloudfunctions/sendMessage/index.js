@@ -4,7 +4,7 @@ cloud.init({ env: cloud.DYNAMIC_CURRENT_ENV });
 const db = cloud.database();
 
 exports.main = async (event) => {
-  const { toUserId, goodsId, content, type = 'text' } = event;
+  const { toUserId, goodsId, content, type = 'text', duration = 0 } = event;
   const wxContext = cloud.getWXContext();
   const fromUserId = wxContext.OPENID;
 
@@ -30,7 +30,8 @@ exports.main = async (event) => {
       toUserId,
       goodsId: goodsId || '',
       content,
-      type,       // text, image
+      type,       // text, image, voice
+      duration: type === 'voice' ? (duration || 0) : 0,
       isRead: false,
       createTime: now
     };
@@ -45,7 +46,7 @@ exports.main = async (event) => {
 
     const chatInfo = {
       chatId,
-      lastMessage: type === 'text' ? content : '[图片]',
+      lastMessage: type === 'voice' ? '[语音]' : (type === 'image' ? '[图片]' : content),
       lastTime: now,
       fromUserId,
       toUserId,

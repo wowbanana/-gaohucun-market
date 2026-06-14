@@ -44,7 +44,7 @@
   <!-- 空状态 -->
   <view class="empty-state" wx:if="{{!loading && goodsList.length === 0}}">
     <text class="empty-icon">📋</text>
-    <text class="empty-text">{{currentTab === 'selling' ? '暂无在售商品' : currentTab === 'sold' ? '暂无已售商品' : '暂无下架商品'}}</text>
+    <text class="empty-text">{{emptyText}}</text>
     <view class="empty-action" wx:if="{{currentTab === 'selling'}}" bindtap="() => wx.switchTab({url: '/pages/publish/publish'})">
       去发布商品
     </view>

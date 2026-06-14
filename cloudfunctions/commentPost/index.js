@@ -5,7 +5,7 @@ const db = cloud.database();
 async function batchConvert(fileIDs) { const urlMap = {}; if (!fileIDs || fileIDs.length === 0) return urlMap; try { const unique = [...new Set(fileIDs.filter(Boolean))]; if (unique.length === 0) return urlMap; const res = await cloud.getTempFileURL({ fileList: unique.slice(0, 50) }); (res.fileList || []).forEach(f => { if (f.fileID && f.tempFileURL) urlMap[f.fileID] = f.tempFileURL; }); } catch (e) { console.warn('[batchConvert] 失败:', e.message || e); } return urlMap; }
 
 exports.main = async (event) => {
-  const { action, postId, content, replyToId, commentId } = event;
+  const { action, postId, content, replyToId, commentId, type = 'text', duration = 0 } = event;
   const wxContext = cloud.getWXContext();
   try {
     if (action === 'create') {
@@ -26,6 +26,8 @@ exports.main = async (event) => {
         data: {
           postId,
           content,
+          type,       // 'text' | 'voice'
+          duration: type === 'voice' ? (duration || 0) : 0,
           replyToId: replyToId || '',
           replyToName,
           authorId: wxContext.OPENID,
@@ -54,6 +56,9 @@ exports.main = async (event) => {
         }
       } catch (e) { /* 忽略 */ }
 
+      // 通知内容预览（语音消息显示 [语音]）
+      const commentPreview = type === 'voice' ? '[语音]' : content.slice(0, 80);
+
       // 通知对象去重
       const notifiedSet = new Set();
 
@@ -65,7 +70,7 @@ exports.main = async (event) => {
             type: 'comment',
             postId,
             postTitle,
-            commentContent: content.slice(0, 80),
+            commentContent: commentPreview,
             fromUser: { openid: myOpenid, nickName: myName, avatarUrl: myAvatar },
             toOpenid: postAuthorId,
             read: false,
@@ -82,7 +87,7 @@ exports.main = async (event) => {
             type: 'comment',
             postId,
             postTitle,
-            commentContent: content.slice(0, 80),
+            commentContent: commentPreview,
             fromUser: { openid: myOpenid, nickName: myName, avatarUrl: myAvatar },
             toOpenid: replyToAuthorId,
             read: false,
@@ -102,19 +107,23 @@ exports.main = async (event) => {
 
       const comments = listRes.data;
 
-      // 收集所有 cloud:// 头像 URL
-      const avatarFileIDs = [];
+      // 收集所有 cloud:// 头像 URL + 语音 URL
+      const allFileIDs = [];
       comments.forEach(c => {
         if (c.authorAvatar && c.authorAvatar.startsWith('cloud://')) {
-          avatarFileIDs.push(c.authorAvatar);
+          allFileIDs.push(c.authorAvatar);
+        }
+        if (c.type === 'voice' && c.content && c.content.startsWith('cloud://')) {
+          allFileIDs.push(c.content);
         }
       });
-      const urlMap = await batchConvert(avatarFileIDs);
+      const urlMap = await batchConvert(allFileIDs);
 
-      // 转换头像
+      // 转换头像和语音
       const converted = comments.map(c => ({
         ...c,
-        authorAvatar: urlMap[c.authorAvatar] || c.authorAvatar || ''
+        authorAvatar: urlMap[c.authorAvatar] || c.authorAvatar || '',
+        content: (c.type === 'voice' && urlMap[c.content]) ? urlMap[c.content] : c.content
       }));
 
       // 构建嵌套结构

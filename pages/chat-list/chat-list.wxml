@@ -8,7 +8,7 @@
   </view>
 
   <!-- 消息列表 -->
-  <view class="msg-item" wx:for="{{messageList}}" wx:key="{{item.msgType === 'trade' ? item.chatId : item.notifId}}"
+  <view class="msg-item" wx:for="{{messageList}}" wx:key="_key"
     bindtap="onItemTap" data-item="{{item}}">
 
     <!-- 头像 -->

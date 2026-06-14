@@ -118,10 +118,36 @@ const getTempFileURLs = (fileIDs) => {
   });
 };
 
+/**
+ * 上传语音到云存储
+ * @param {string} tempFilePath 录音临时文件路径
+ * @returns {Promise<string>} 文件ID
+ */
+const uploadVoiceFile = (tempFilePath) => {
+  const timestamp = Date.now();
+  const random = Math.floor(Math.random() * 10000);
+  const extMatch = tempFilePath.match(/\.(\w+)$/);
+  const ext = extMatch ? extMatch[1] : 'mp3';
+  const cloudPath = 'voices/' + timestamp + '-' + random + '.' + ext;
+
+  return new Promise((resolve, reject) => {
+    wx.cloud.uploadFile({
+      cloudPath: cloudPath,
+      filePath: tempFilePath,
+      success: (res) => resolve(res.fileID),
+      fail: (err) => {
+        console.error('语音上传失败:', err);
+        reject({ code: -1, message: '语音上传失败', detail: err });
+      }
+    });
+  });
+};
+
 module.exports = {
   callFunction,
   uploadImage,
   uploadImages,
+  uploadVoiceFile,
   deleteFiles,
   getTempFileURLs
 };

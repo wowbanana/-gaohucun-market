@@ -44,17 +44,17 @@ exports.main = async (event) => {
       });
     }
 
-    // 批量转换图片消息中的 cloud:// URL
+    // 批量转换图片/语音消息中的 cloud:// URL
     const fileIDs = [];
     msgRes.data.forEach(msg => {
-      if (msg.type === 'image' && msg.content && msg.content.startsWith('cloud://')) {
+      if ((msg.type === 'image' || msg.type === 'voice') && msg.content && msg.content.startsWith('cloud://')) {
         fileIDs.push(msg.content);
       }
     });
     const urlMap = await batchConvert(fileIDs);
 
     const list = msgRes.data.map(msg => {
-      if (msg.type === 'image' && msg.content && urlMap[msg.content]) {
+      if ((msg.type === 'image' || msg.type === 'voice') && msg.content && urlMap[msg.content]) {
         return { ...msg, content: urlMap[msg.content] };
       }
       return msg;
